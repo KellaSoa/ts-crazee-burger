@@ -1,43 +1,64 @@
-import { doc, getDoc, setDoc } from "firebase/firestore"
-import { db } from "./firebase-config"
-import { fakeMenu } from "../fakeData/fakeMenu"
+import { doc, getDoc, setDoc, enableNetwork } from "firebase/firestore";
+import { db } from "./firebase-config";
+import { fakeMenu } from "../fakeData/fakeMenu";
 
+/**
+ * Get a user from Firestore
+ * @param {string} idUser - The user's username
+ * @returns {Promise<object|null>} The user data or null if not found
+ */
 export const getUser = async (idUser) => {
-  //const docRef = doc(CHEMIN)
-  const docRef = doc(db, "users", idUser)
+  try {
+    // Ensure Firestore is online (prevents "client is offline" in Vite)
+    await enableNetwork(db);
 
-  const docSnapshot = await getDoc(docRef)
-  if (docSnapshot.exists()) {
-    const userReceived = docSnapshot.data()
-    return userReceived
+    const docRef = doc(db, "users", idUser);
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      return docSnapshot.data();
+    }
+
+    return null; // Explicitly return null if user does not exist
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return null;
   }
-}
+};
 
-// Quand une fonction retourne une promesse, cette promesse ne peut avoir que 3 valeurs possibles :
-// 1er cas : promesse en cours d'achèvement => Promise (pending)
-// 2e cas : résultat positif de la promesse achevée => résultat positif (fulfilled)
-// 3e cas : résultat négatif de la promesse achevée => résultat négatif (rejected)
-
+/**
+ * Create a new user in Firestore
+ * @param {string} userId - The username
+ * @returns {Promise<object>} The newly created user
+ */
 export const createUser = async (userId) => {
-  // CACHETTE
-  const docRef = doc(db, "users", userId)
+  const docRef = doc(db, "users", userId);
 
-  // NOURRITURE
-  const newUserToCreate = {
+  const newUser = {
     username: userId,
     menu: fakeMenu.SMALL,
+  };
+
+  try {
+    await setDoc(docRef, newUser);
+    return newUser;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error; // Propagate error so caller knows
   }
+};
 
-  //setDoc(CACHETTE, NOURRITURE)
-  await setDoc(docRef, newUserToCreate)
-  return newUserToCreate
-}
-
+/**
+ * Authenticate a user: fetch existing or create new
+ * @param {string} userId
+ * @returns {Promise<object>} User data
+ */
 export const authenticateUser = async (userId) => {
-  const existingUser = await getUser(userId)
+  const existingUser = await getUser(userId);
 
   if (!existingUser) {
-    return await createUser(userId)
+    return await createUser(userId);
   }
-  return existingUser
-}
+
+  return existingUser;
+};
