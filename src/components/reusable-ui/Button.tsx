@@ -1,7 +1,16 @@
 import styled, { css } from "styled-components"
 import { theme } from "../../theme"
+import { ComponentProps } from "react"
 
-export default function Button({ label, Icon, className, version = "normal", onClick, disabled }) {
+type ButtonVersion = "normal" | "success"
+
+type ButtonProps = {
+  label: string
+  Icon?: JSX.Element
+  version?: ButtonVersion
+} & ComponentProps<"button">
+
+export default function Button({ label, Icon, className, version = "normal", onClick, disabled }:ButtonProps) {
   return (
     <ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
       <span>{label}</span>
@@ -10,7 +19,11 @@ export default function Button({ label, Icon, className, version = "normal", onC
   )
 }
 
-const ButtonStyled = styled.button`
+type ButtonStyledProps = {
+  version: ButtonVersion
+}
+
+const ButtonStyled = styled.button<ButtonStyledProps>`
   ${({ version }) => extraStyle[version]};
 `
 
