@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { theme } from "../../theme/theme"
-import { IconType } from "react-icons"
 
 type TabProps = {
   label?: string
