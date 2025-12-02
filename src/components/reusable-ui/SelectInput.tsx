@@ -1,6 +1,15 @@
-import React from "react"
 import styled from "styled-components"
-import { theme } from "../../theme"
+import { theme } from "../../theme/theme"
+
+type OptionsType = {
+  optionValue?: string | number | readonly string[] | undefined
+  label: string
+}[]
+
+type SelectInputProps = {
+  options: OptionsType
+  Icon?: React.ReactNode
+} & React.SelectHTMLAttributes<HTMLSelectElement>
 
 export default function SelectInput({
   options,
@@ -10,7 +19,7 @@ export default function SelectInput({
   className,
   onChange,
   ...restProps
-}) {
+}: SelectInputProps) {
   return (
     <SelectInputStyled className={className}>
       {Icon && <div className="icon">{Icon}</div>}
@@ -35,7 +44,7 @@ const SelectInputStyled = styled.div`
 
   .icon {
     /* border: 1px solid red; */
-    font-size: ${theme.fonts.P1};
+    font-size: ${theme.fonts.size.P1};
     margin-right: 13px;
     color: ${theme.colors.greyBlue};
     display: flex; // centre verticalement l'icône dans le champ select
