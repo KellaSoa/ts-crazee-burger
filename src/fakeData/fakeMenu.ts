@@ -1,6 +1,8 @@
-const EMPTY = []
+import { MenuProductType } from "@/types/Product"
 
-const SMALL = [
+const EMPTY:MenuProductType[] = []
+
+const SMALL:MenuProductType[] = [
   {
     id: "1",
     imageSource: "/images/burger1.png",
@@ -21,7 +23,7 @@ const SMALL = [
   },
 ]
 
-const MEDIUM = [
+const MEDIUM:MenuProductType[] = [
   {
     id: "1",
     imageSource: "/images/burger-bacon-egg.png",
@@ -69,7 +71,7 @@ const MEDIUM = [
   },
 ]
 
-const LARGE = [
+const LARGE:MenuProductType[] = [
   {
     id: "1",
     imageSource: "/images/burger-bacon-egg.png",
