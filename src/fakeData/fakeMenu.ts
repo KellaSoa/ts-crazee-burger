@@ -1,8 +1,8 @@
-import { MenuProductType } from "@/types/Product"
+import { MenuProduct } from "@/types/Product"
 
-const EMPTY:MenuProductType[] = []
+const EMPTY:MenuProduct[] = []
 
-const SMALL:MenuProductType[] = [
+const SMALL:MenuProduct[] = [
   {
     id: "1",
     imageSource: "/images/burger1.png",
@@ -23,7 +23,7 @@ const SMALL:MenuProductType[] = [
   },
 ]
 
-const MEDIUM:MenuProductType[] = [
+const MEDIUM:MenuProduct[] = [
   {
     id: "1",
     imageSource: "/images/burger-bacon-egg.png",
@@ -71,7 +71,7 @@ const MEDIUM:MenuProductType[] = [
   },
 ]
 
-const LARGE:MenuProductType[] = [
+const LARGE:MenuProduct[] = [
   {
     id: "1",
     imageSource: "/images/burger-bacon-egg.png",

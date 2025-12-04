@@ -1,4 +1,4 @@
-export type MenuProductType = {
+export type MenuProduct = {
   id: string
   imageSource: string
   title: string
