@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import  { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { IoChevronForward } from "react-icons/io5"
@@ -18,10 +18,21 @@ export default function LoginForm() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const userReceived = await authenticateUser(username)
 
-    setUsername("")
-    navigate(`order/${userReceived.username}`)
+  try {
+    const userReceived = await authenticateUser(username);
+
+    if (!userReceived) {
+      alert("User not found");
+      return;
+    }
+
+    setUsername("");
+    navigate(`order/${userReceived.username}`);
+  } catch (err) {
+    console.error(err);
+    alert("Error: " + err.message);
+  }
   }
 
   const handleChange = (event) => {
