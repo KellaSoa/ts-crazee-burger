@@ -6,10 +6,10 @@ import {
   removeObjectById,
 } from "@/utils/array";
 import { setLocalStorage } from "@/utils/window";
-import { BasketProduct } from "@/types/Product";
+import { BasketProductQuantity } from "@/types/Product";
 
 export const useBasket = () => {
-  const [basket, setBasket] = useState<BasketProduct[]>([]);
+  const [basket, setBasket] = useState<BasketProductQuantity[]>([]);
 
   const handleAddToBasket = (idProductToAdd: string, username: string) => {
     const basketCopy = deepClone(basket);
@@ -20,44 +20,54 @@ export const useBasket = () => {
       return;
     }
 
-    createNewBasketProduct(idProductToAdd, basketCopy, setBasket, username);
+    createNewBasketProductQuantity(
+      idProductToAdd,
+      basketCopy,
+      setBasket,
+      username
+    );
   };
 
   const incrementProductAlreadyInBasket = (
     idProductToAdd: string,
-    basketCopy: BasketProduct[],
+    basketCopy: BasketProductQuantity[],
     username: string
   ) => {
-    const indexOfBasketProductToIncrement = findIndexById(
+    const indexOfBasketProductQuantityToIncrement = findIndexById(
       idProductToAdd,
       basketCopy
     );
-    basketCopy[indexOfBasketProductToIncrement].quantity += 1;
+    basketCopy[indexOfBasketProductQuantityToIncrement].quantity += 1;
     setBasket(basketCopy);
     setLocalStorage(username, basketCopy);
   };
 
-  const createNewBasketProduct = (
+  const createNewBasketProductQuantity = (
     idProductToAdd: string,
-    basketCopy: BasketProduct[],
-    setBasket: React.Dispatch<React.SetStateAction<BasketProduct[]>>,
+    basketCopy: BasketProductQuantity[],
+    setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>,
     username: string
   ) => {
     // we do not re-create a whole product, we only add the extra info a basket product has in comparison to a menu product
-    const newBasketProduct = { id: idProductToAdd, quantity: 1 };
-    const newBasket = [newBasketProduct, ...basketCopy];
+    const newBasketProductQuantity = { id: idProductToAdd, quantity: 1 };
+    const newBasket = [newBasketProductQuantity, ...basketCopy];
     setBasket(newBasket);
     setLocalStorage(username, newBasket);
   };
 
-  const handleDeleteBasketProduct = (
-    idBasketProduct: string,
+  const handleDeleteBasketProductQuantity = (
+    idBasketProductQuantity: string,
     username: string
   ) => {
-    const basketUpdated = removeObjectById(idBasketProduct, basket);
+    const basketUpdated = removeObjectById(idBasketProductQuantity, basket);
     setBasket(basketUpdated);
     setLocalStorage(username, basketUpdated);
   };
 
-  return { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct };
+  return {
+    basket,
+    setBasket,
+    handleAddToBasket,
+    handleDeleteBasketProductQuantity,
+  };
 };
