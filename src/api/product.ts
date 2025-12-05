@@ -12,13 +12,15 @@ export const syncBothMenus = (userId: string, menuUpdated: MenuProduct[]) => {
   setDoc(cachette, nourriture);
 };
 
-export const getMenu = async (idUser: string) => {
+export const getMenu = async (
+  idUser: string
+): Promise<MenuProduct[] | undefined> => {
   //const docRef = doc(CHEMIN)
   const docRef = doc(db, "users", idUser);
 
   const docSnapshot = await getDoc(docRef);
   if (docSnapshot.exists()) {
     const { menu } = docSnapshot.data();
-    return menu;
+    return menu as MenuProduct[];
   }
 };
