@@ -1,41 +1,69 @@
-import React from "react"
-import { useContext } from "react"
-import styled from "styled-components"
-import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "../../../../../../enums/product"
-import BasketCard from "./BasketCard"
-import OrderContext from "../../../../../../context/OrderContext"
-import { findObjectById } from "../../../../../../utils/array"
-import { checkIfProductIsClicked } from "../../MainRightSide/Menu/helper"
-import { TransitionGroup, CSSTransition } from "react-transition-group"
-import { basketAnimation } from "../../../../../../theme/animations"
-import { formatPrice } from "../../../../../../utils/maths"
-import { convertStringToBoolean } from "../../../../../../utils/string"
-import Sticker from "../../../../../reusable-ui/Sticker"
+import styled from "styled-components";
+import {
+  BASKET_MESSAGE,
+  IMAGE_COMING_SOON,
+} from "../../../../../../enums/product";
+import BasketCard from "./BasketCard";
+import { useOrderContext } from "../../../../../../context/OrderContext";
+import { findObjectById } from "../../../../../../utils/array";
+import { checkIfProductIsClicked } from "../../MainRightSide/Menu/helper";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { basketAnimation } from "../../../../../../theme/animations";
+import { formatPrice } from "../../../../../../utils/maths";
+import { convertStringToBoolean } from "../../../../../../utils/string";
+import Sticker from "../../../../../reusable-ui/Sticker";
+import { useParams } from "react-router-dom";
 
 export default function BasketProducts() {
-  const { username, basket, isModeAdmin, handleDeleteBasketProduct, menu, handleProductSelected, productSelected } =
-    useContext(OrderContext)
+  const {
+    basket,
+    isModeAdmin,
+    handleDeleteBasketProduct,
+    menu,
+    handleProductSelected,
+    productSelected,
+  } = useOrderContext();
 
+  const { username } = useParams();
   const handleOnDelete = (event, id) => {
-    event.stopPropagation()
-    handleDeleteBasketProduct(id, username)
-  }
+    event.stopPropagation();
+    handleDeleteBasketProduct(id, username);
+  };
 
   return (
-    <TransitionGroup component={BasketProductsStyled} className={"transition-group"}>
+    <TransitionGroup
+      component={BasketProductsStyled}
+      className={"transition-group"}
+    >
       {basket.map((basketProduct) => {
-        const menuProduct = findObjectById(basketProduct.id, menu)
+        const menuProduct = findObjectById(basketProduct.id, menu);
         return (
-          <CSSTransition appear={true} classNames={"animation-basket"} key={basketProduct.id} timeout={300}>
+          <CSSTransition
+            appear={true}
+            classNames={"animation-basket"}
+            key={basketProduct.id}
+            timeout={300}
+          >
             <div className="card-container">
               <BasketCard
                 {...menuProduct}
-                imageSource={menuProduct.imageSource ? menuProduct.imageSource : IMAGE_COMING_SOON}
+                imageSource={
+                  menuProduct.imageSource
+                    ? menuProduct.imageSource
+                    : IMAGE_COMING_SOON
+                }
                 quantity={basketProduct.quantity}
                 onDelete={(event) => handleOnDelete(event, basketProduct.id)}
                 isClickable={isModeAdmin}
-                onClick={isModeAdmin ? () => handleProductSelected(basketProduct.id) : null}
-                isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
+                onClick={
+                  isModeAdmin
+                    ? () => handleProductSelected(basketProduct.id)
+                    : null
+                }
+                isSelected={checkIfProductIsClicked(
+                  basketProduct.id,
+                  productSelected.id
+                )}
                 className={"card"}
                 price={
                   convertStringToBoolean(menuProduct.isAvailable)
@@ -46,10 +74,10 @@ export default function BasketProducts() {
               />
             </div>
           </CSSTransition>
-        )
+        );
       })}
     </TransitionGroup>
-  )
+  );
 }
 
 const BasketProductsStyled = styled.div`
@@ -84,4 +112,4 @@ const BasketProductsStyled = styled.div`
   }
 
   ${basketAnimation}
-`
+`;
