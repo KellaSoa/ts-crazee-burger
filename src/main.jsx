@@ -7,9 +7,9 @@ import { router } from "./routers/router";
 import { OrderContextProvider } from "./context/OrderContext";
 
 createRoot(document.getElementById("root")).render(
-  <OrderContextProvider>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <OrderContextProvider>
       <RouterProvider router={router} />
-    </ThemeProvider>
-  </OrderContextProvider>
+    </OrderContextProvider>
+  </ThemeProvider>
 );

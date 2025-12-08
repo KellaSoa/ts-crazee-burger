@@ -55,7 +55,7 @@ export const useBasket = () => {
     setLocalStorage(username, newBasket);
   };
 
-  const handleDeleteBasketProductQuantity = (
+  const handleDeleteBasketProduct = (
     idBasketProductQuantity: string,
     username: string
   ) => {
@@ -68,6 +68,6 @@ export const useBasket = () => {
     basket,
     setBasket,
     handleAddToBasket,
-    handleDeleteBasketProductQuantity,
+    handleDeleteBasketProduct,
   };
 };
