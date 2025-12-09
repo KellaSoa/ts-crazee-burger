@@ -1,43 +1,41 @@
-import  { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import { IoChevronForward } from "react-icons/io5"
-import { BsPersonCircle } from "react-icons/bs"
-import TextInput from "../../reusable-ui/TextInput"
-import Button from "../../reusable-ui/Button"
-import { theme } from "../../../theme"
-import { authenticateUser } from "../../../api/user"
-import Welcome from "./Welcome"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { IoChevronForward } from "react-icons/io5";
+import { BsPersonCircle } from "react-icons/bs";
+import TextInput from "../../reusable-ui/TextInput";
+import Button from "../../reusable-ui/Button";
+import { theme } from "../../../theme";
+import { authenticateUser } from "../../../api/user";
+import Welcome from "./Welcome";
 
 export default function LoginForm() {
   // state
-  const [username, setUsername] = useState("Bob")
-  const navigate = useNavigate()
+  const [username, setUsername] = useState<string>("");
+  const navigate = useNavigate();
 
   // comportements
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
+    try {
+      const userReceived = await authenticateUser(username);
 
-  try {
-    const userReceived = await authenticateUser(username);
+      if (!userReceived) {
+        alert("User not found");
+        return;
+      }
 
-    if (!userReceived) {
-      alert("User not found");
-      return;
+      setUsername("");
+      navigate(`order/${userReceived.username}`);
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-    setUsername("");
-    navigate(`order/${userReceived.username}`);
-  } catch (err) {
-    console.error(err);
-    alert("Error: " + err.message);
-  }
-  }
-
-  const handleChange = (event) => {
-    setUsername(event.target.value)
-  }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
+  };
 
   // affichage
   return (
@@ -57,7 +55,7 @@ export default function LoginForm() {
         <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
       </div>
     </LoginFormStyled>
-  )
+  );
 }
 
 const LoginFormStyled = styled.form`
@@ -88,4 +86,4 @@ const LoginFormStyled = styled.form`
   .input-login {
     margin: 18px 0; // must be handled in Parent
   }
-`
+`;
