@@ -4,7 +4,7 @@ import ToggleButton from "../../../reusable-ui/ToggleButton";
 
 import ToastAdmin from "./ToastAdmin";
 import { toast } from "react-toastify";
-import { useOrderContext } from "../../../../context/OrderContext";
+import { useOrderContext } from "@/context/OrderContext";
 
 export default function NavbarRightSide() {
   const { isModeAdmin, setIsModeAdmin } = useOrderContext();
