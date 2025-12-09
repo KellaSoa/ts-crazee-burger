@@ -109,4 +109,12 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   );
 };
 //3-use context
-export const useOrderContext = () => useContext(OrderContext);
+export const useOrderContext = () => {
+  const context = useContext(OrderContext);
+  if (!context) {
+    throw new Error(
+      "useOrderContext must be used within an OrderContextProvider"
+    );
+  }
+  return context;
+};
