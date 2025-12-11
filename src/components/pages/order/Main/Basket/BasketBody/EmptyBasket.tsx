@@ -1,16 +1,19 @@
-import React from "react"
-import styled from "styled-components"
-import { theme } from "../../../../../../theme"
-import { BASKET_MESSAGE } from "../../../../../../enums/product"
+import styled from "styled-components";
+import { theme } from "@/theme/theme";
+import { BASKET_MESSAGE } from "@/enums/product";
 
-export default function EmptyBasket({ isLoading }) {
+type EmptyBasketProps = {
+  isLoading: boolean;
+};
+
+export default function EmptyBasket({ isLoading }: EmptyBasketProps) {
   return (
     <EmptyBasketStyled>
       <span className="empty-message">
         {isLoading ? BASKET_MESSAGE.LOADING : BASKET_MESSAGE.EMPTY}
       </span>
     </EmptyBasketStyled>
-  )
+  );
 }
 
 const EmptyBasketStyled = styled.div`
@@ -31,4 +34,4 @@ const EmptyBasketStyled = styled.div`
     font-size: ${theme.fonts.size.P4};
     color: ${theme.colors.greyBlue};
   }
-`
+`;

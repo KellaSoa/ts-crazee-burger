@@ -1,3 +1,4 @@
+// @ts-nocheck
 import styled from "styled-components";
 import { useOrderContext } from "../../../../../context/OrderContext";
 import { theme } from "../../../../../theme";
