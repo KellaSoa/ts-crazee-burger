@@ -69,7 +69,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     useBasket();
 
   const handleProductSelected = async (idProductClicked: string) => {
-    if (!menu) return;
+    if (!isModeAdmin || !menu) return;
     const productClickedOn = findObjectById(idProductClicked, menu);
     if (!productClickedOn) return;
     await setIsCollapsed(false);
