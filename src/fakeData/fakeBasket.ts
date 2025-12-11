@@ -1,5 +1,5 @@
 import { BasketProduct } from "@/types/Product";
-//@ts-ignore
+
 import { EMPTY_PRODUCT } from "../enums/product";
 
 export const EMPTY: BasketProduct[] = [];

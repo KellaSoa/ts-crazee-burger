@@ -1,8 +1,7 @@
-"react";
 import styled from "styled-components";
-import { useOrderContext } from "../../../../../../../context/OrderContext";
-import { EMPTY_PRODUCT } from "../../../../../../../enums/product";
-import { theme } from "../../../../../../../theme";
+import { useOrderContext } from "@/context/OrderContext";
+import { EMPTY_PRODUCT } from "@/enums/product";
+import { theme } from "@/theme/theme";
 import { getTabSelected, getTabsConfig } from "../tabsConfig";
 
 export default function AdminPanel() {

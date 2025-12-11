@@ -3,7 +3,7 @@ import { useOrderContext } from "@/context/OrderContext";
 import { theme } from "@/theme/theme";
 import { formatPrice } from "@/utils/maths";
 import Header from "@/components/reusable-ui/Header";
-//@ts-ignore
+
 import { calculateSumToPay } from "./helper";
 import CasinoEffect from "../../../../../reusable-ui/CasinoEffect";
 
