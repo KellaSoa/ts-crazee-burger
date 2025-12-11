@@ -1,6 +1,5 @@
-import React from "react"
-import styled from "styled-components"
-import { theme } from "../../../../../../../../theme"
+import styled from "styled-components";
+import { theme } from "@/theme/theme";
 
 export default function EditInfoMessage() {
   return (
@@ -8,7 +7,7 @@ export default function EditInfoMessage() {
       Cliquer sur un produit du menu pour le modifier{" "}
       <span className="live-update">en temps réel</span>
     </EditInfoMessageStyled>
-  )
+  );
 }
 
 const EditInfoMessageStyled = styled.span`
@@ -17,4 +16,4 @@ const EditInfoMessageStyled = styled.span`
   .live-update {
     text-decoration: underline;
   }
-`
+`;

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useParams } from "react-router-dom";
 import { useOrderContext } from "../../../../../../../../context/OrderContext";
 import { EMPTY_PRODUCT } from "../../../../../../../../enums/product";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState } from "react";
 import { useOrderContext } from "../../../../../../../../context/OrderContext";
 import Form from "../Form/Form";
