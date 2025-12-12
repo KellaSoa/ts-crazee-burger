@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, enableNetwork } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { fakeMenu } from "@/fakeData/fakeMenu";
 import { User } from "@/types/User";
@@ -9,22 +9,14 @@ import { User } from "@/types/User";
  * @returns {Promise<User|null>} The user data or null if not found
  */
 export const getUser = async (idUser: string): Promise<User | null> => {
-  try {
-    // Ensure Firestore is online (prevents "client is offline" in Vite)
-    await enableNetwork(db);
+  const docRef = doc(db, "users", idUser);
+  const docSnapshot = await getDoc(docRef);
 
-    const docRef = doc(db, "users", idUser);
-    const docSnapshot = await getDoc(docRef);
-
-    if (docSnapshot.exists()) {
-      return docSnapshot.data() as User;
-    }
-
-    return null; // Explicitly return null if user does not exist
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    return null;
+  if (docSnapshot.exists()) {
+    return docSnapshot.data() as User;
   }
+
+  return null; // Explicitly return null if user does not exist
 };
 
 /**
