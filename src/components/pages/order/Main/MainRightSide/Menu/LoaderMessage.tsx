@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { theme } from "@/theme/theme";
 
-export default function Loader() {
+export default function LoaderMessage() {
   return (
-    <LoaderStyled>
+    <LoaderMessageStyled>
       <span className="title">Chargement en cours ...</span>
-    </LoaderStyled>
+    </LoaderMessageStyled>
   );
 }
 
-const LoaderStyled = styled.div`
+const LoaderMessageStyled = styled.div`
   background-color: ${theme.colors.background_white};
   box-shadow: ${theme.shadows.strong};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};

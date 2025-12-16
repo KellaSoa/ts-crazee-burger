@@ -12,7 +12,7 @@ import {
   IMAGE_NO_STOCK,
 } from "@/enums/product";
 import { isEmpty } from "@/utils/array";
-import Loader from "./Loader";
+import LoaderMessage from "./LoaderMessage";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { menuAnimation } from "@/theme/animations";
 import { convertStringToBoolean } from "@/utils/string";
@@ -58,7 +58,7 @@ export default function Menu() {
     : "card-container";
 
   // affichage
-  if (menu === undefined) return <Loader />;
+  if (menu === undefined) return <LoaderMessage />;
 
   if (isEmpty(menu)) {
     if (!isModeAdmin) return <EmptyMenuClient />;
