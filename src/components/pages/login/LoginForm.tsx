@@ -8,16 +8,25 @@ import Button from "../../reusable-ui/Button";
 import { theme } from "../../../theme";
 import { authenticateUser } from "../../../api/user";
 import Welcome from "./Welcome";
+import { loginFormValidator } from "./loginFormValidator";
+import { ErrorMessage } from "@/components/reusable-ui/ErrorMessage";
 
 export default function LoginForm() {
   // state
   const [username, setUsername] = useState<string>("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const result = loginFormValidator.safeParse(username);
+    if (!result.success) {
+      setHasError(true);
+      setError(result.error.issues[0].message);
+      return;
+    }
     setIsLoading(true);
 
     try {
@@ -37,19 +46,19 @@ export default function LoginForm() {
 
   // affichage
   return (
-    <LoginFormStyled action="submit" onSubmit={handleSubmit}>
+    <LoginFormStyled action="submit" onSubmit={handleSubmit} noValidate>
       <Welcome />
       <div>
         <TextInput
           value={username}
           onChange={handleChange}
           placeholder={"Entrez votre prénom"}
-          required
           Icon={<BsPersonCircle />}
           className="input-login"
           version="normal"
+          required
         />
-
+        {hasError && <ErrorMessage error={error} />}
         <Button
           isLoading={isLoading}
           label={"Accéder à mon espace"}
