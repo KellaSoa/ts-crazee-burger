@@ -13,21 +13,19 @@ export default function LoginForm() {
   // state
   const [username, setUsername] = useState<string>("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
 
     try {
       const userReceived = await authenticateUser(username);
-
-      if (!userReceived) {
-        alert("User not found");
-        return;
-      }
-
-      setUsername("");
-      navigate(`order/${userReceived.username}`);
+      setTimeout(() => {
+        setUsername("");
+        navigate(`order/${userReceived.username}`);
+      }, 2000);
     } catch (err) {
       console.error(err);
     }
@@ -52,7 +50,11 @@ export default function LoginForm() {
           version="normal"
         />
 
-        <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+        <Button
+          isLoading={isLoading}
+          label={"Accéder à mon espace"}
+          Icon={<IoChevronForward />}
+        />
       </div>
     </LoginFormStyled>
   );
