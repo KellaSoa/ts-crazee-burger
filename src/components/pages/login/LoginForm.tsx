@@ -11,23 +11,23 @@ import Welcome from "./Welcome";
 import { loginFormValidator } from "./loginFormValidator";
 import { ErrorMessage } from "@/components/reusable-ui/ErrorMessage";
 
+type statusType = "success" | "loading" | "error" | "idle";
 export default function LoginForm() {
   // state
   const [username, setUsername] = useState<string>("");
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hasError, setHasError] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [status, setStatus] = useState<statusType>("idle");
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = loginFormValidator.safeParse(username);
     if (!result.success) {
-      setHasError(true);
+      setStatus("error");
       setError(result.error.issues[0].message);
       return;
     }
-    setIsLoading(true);
+    setStatus("loading");
 
     try {
       const userReceived = await authenticateUser(username);
@@ -57,10 +57,11 @@ export default function LoginForm() {
           className="input-login"
           version="normal"
           required
+          aria-required
         />
-        {hasError && <ErrorMessage error={error} />}
+        {status === "error" && <ErrorMessage error={error} />}
         <Button
-          isLoading={isLoading}
+          isLoading={status === "loading"}
           label={"Accéder à mon espace"}
           Icon={<IoChevronForward />}
         />
