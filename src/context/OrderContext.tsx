@@ -45,6 +45,7 @@ type OrderContextType = {
     idBasketProductQuantity: string,
     username: string
   ) => void;
+  hidePanel: () => void;
 };
 
 //1-create context
@@ -78,6 +79,10 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     titleEditRef.current?.focus();
   };
 
+  const hidePanel = () => {
+    isModeAdmin && setIsCollapsed(!isCollapsed);
+  };
+
   const orderContextValue: OrderContextType = {
     isModeAdmin,
     setIsModeAdmin,
@@ -101,6 +106,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     handleAddToBasket,
     handleDeleteBasketProduct,
     handleProductSelected,
+    hidePanel,
   };
   return (
     <OrderContext.Provider value={orderContextValue}>
