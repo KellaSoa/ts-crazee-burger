@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { initialiseUserSession } from "./helpers/initialiseUserSession";
 import { useParams } from "react-router-dom";
 import { useOrderContext } from "../../../context/OrderContext";
+import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts";
 
 export default function OrderPage() {
   //state
@@ -19,6 +20,7 @@ export default function OrderPage() {
 
   return (
     <OrderPageStyled>
+      <ModalShortcuts />
       <div className="container">
         <Navbar />
         <Main />
@@ -33,9 +35,11 @@ const OrderPageStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid black;
 
   .container {
     background: red;
+    border: 2px solid red;
     height: 95vh;
     width: 1400px;
     display: flex;
