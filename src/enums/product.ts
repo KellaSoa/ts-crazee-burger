@@ -1,6 +1,6 @@
-import { MenuProduct } from "@/types/Product";
+import { Product } from "@/types/Product";
 
-export const EMPTY_PRODUCT: MenuProduct = {
+export const EMPTY_PRODUCT: Product = {
   id: "",
   title: "",
   imageSource: "",
@@ -17,3 +17,5 @@ export const BASKET_MESSAGE = {
   LOADING: "Chargement en cours...",
   NOT_AVAILABLE: "Non disponible",
 } as const;
+
+export const DEFAULT_SUM_TO_PAY = 0;

@@ -8,26 +8,33 @@ import Button from "../../reusable-ui/Button";
 import { theme } from "../../../theme";
 import { authenticateUser } from "../../../api/user";
 import Welcome from "./Welcome";
+import { loginFormValidator } from "./loginFormValidator";
+import { ErrorMessage } from "@/components/reusable-ui/ErrorMessage";
 
+type statusType = "success" | "loading" | "error" | "idle";
 export default function LoginForm() {
   // state
   const [username, setUsername] = useState<string>("");
   const navigate = useNavigate();
-
+  const [error, setError] = useState<string>("");
+  const [status, setStatus] = useState<statusType>("idle");
   // comportements
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const result = loginFormValidator.safeParse(username);
+    if (!result.success) {
+      setStatus("error");
+      setError(result.error.issues[0].message);
+      return;
+    }
+    setStatus("loading");
 
     try {
       const userReceived = await authenticateUser(username);
-
-      if (!userReceived) {
-        alert("User not found");
-        return;
-      }
-
-      setUsername("");
-      navigate(`order/${userReceived.username}`);
+      setTimeout(() => {
+        setUsername("");
+        navigate(`order/${userReceived.username}`);
+      }, 2000);
     } catch (err) {
       console.error(err);
     }
@@ -39,20 +46,25 @@ export default function LoginForm() {
 
   // affichage
   return (
-    <LoginFormStyled action="submit" onSubmit={handleSubmit}>
+    <LoginFormStyled action="submit" onSubmit={handleSubmit} noValidate>
       <Welcome />
       <div>
         <TextInput
           value={username}
           onChange={handleChange}
           placeholder={"Entrez votre prénom"}
-          required
           Icon={<BsPersonCircle />}
           className="input-login"
           version="normal"
+          required
+          aria-required
         />
-
-        <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+        {status === "error" && <ErrorMessage error={error} />}
+        <Button
+          isLoading={status === "loading"}
+          label={"Accéder à mon espace"}
+          Icon={<IoChevronForward />}
+        />
       </div>
     </LoginFormStyled>
   );

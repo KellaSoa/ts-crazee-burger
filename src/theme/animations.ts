@@ -1,5 +1,5 @@
 import { css, keyframes } from "styled-components"
-import { theme } from "."
+import { theme } from "@/theme/theme"
 
 export const fadeIn = keyframes`
   0% {
@@ -128,5 +128,38 @@ export const menuAnimation = css`
       opacity: 0.01;
       transition: ${theme.animations.speed.quick} ease-out;
     }
+  }
+`
+
+export const rotate = keyframes`
+  0% { 
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg); 
+  }
+`
+
+export const chipAnimation = keyframes`
+  0% {
+    /* z-index: 1; */
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+export const badgeAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
   }
 `
