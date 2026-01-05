@@ -1,13 +1,13 @@
-import { Color } from "@/theme/theme"
+import { Color } from "@/theme/theme";
 
 export type Category = {
-  id: string
-  label: string
-  color: Color[keyof Color] | ""
-  iconName: IconName
-  value?: string
-  isActive?: boolean
-}
+  id: string;
+  label: string;
+  color: Color[keyof Color] | "";
+  iconName: IconName;
+  value?: string;
+  isActive?: boolean;
+};
 
 // attention, là c'est pas les catégorie labels, mais bien les icones qu'on représente via un label.
 // je préfère ne pas créer de union type en static mais plutot en dynamique comme ça, je peux exploiter plus tard le array dans le multi select et j'ai de la flexibilité sur ce qu'est un IconType.
@@ -29,9 +29,9 @@ export const ICON_NAMES = [
   "chocolateBar",
   "tasse chaude",
   "menu",
-] as const
+] as const;
 
-export type IconName = (typeof ICON_NAMES)[number]
+export type IconName = (typeof ICON_NAMES)[number];
 
 // Cours sur l'accès au "type de propriété" par indice
 // type NameInfoType = {
