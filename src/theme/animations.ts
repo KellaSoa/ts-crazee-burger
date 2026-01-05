@@ -1,5 +1,5 @@
-import { css, keyframes } from "styled-components";
-import { theme } from ".";
+import { css, keyframes } from "styled-components"
+import { theme } from "@/theme/theme"
 
 export const fadeIn = keyframes`
   0% {
@@ -9,7 +9,7 @@ export const fadeIn = keyframes`
   100% {
     opacity: 1;
   }
-`;
+`
 
 export const fadeInFromRight = keyframes`
   0% {
@@ -23,7 +23,7 @@ export const fadeInFromRight = keyframes`
     opacity: 1;
     transform: translateX(0);
   }
-`;
+`
 
 export const fadeInFromTop = keyframes`
   0% {
@@ -37,7 +37,7 @@ export const fadeInFromTop = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`;
+`
 
 export const fadeInFromBottom = keyframes`
   0%{
@@ -50,7 +50,7 @@ export const fadeInFromBottom = keyframes`
     opacity: 1;
   }
 
-`;
+`
 
 export const adminAnimation = css`
   .admin-appear {
@@ -62,7 +62,7 @@ export const adminAnimation = css`
       transition: all 500ms;
     }
   }
-`;
+`
 
 export const basketAnimation = css`
   .animation-basket-appear {
@@ -106,7 +106,7 @@ export const basketAnimation = css`
       transition: ${theme.animations.speed.quick};
     }
   }
-`;
+`
 
 export const menuAnimation = css`
   /* MOUNTING */
@@ -129,7 +129,8 @@ export const menuAnimation = css`
       transition: ${theme.animations.speed.quick} ease-out;
     }
   }
-`;
+`
+
 export const rotate = keyframes`
   0% { 
     transform: rotate(0deg);
@@ -138,4 +139,27 @@ export const rotate = keyframes`
   100% {
     transform: rotate(360deg); 
   }
-`;
+`
+
+export const chipAnimation = keyframes`
+  0% {
+    /* z-index: 1; */
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
+
+export const badgeAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
+  }
+`
