@@ -1,6 +1,6 @@
-import { MenuProduct } from "./Product";
+import { Product } from "./Product"
 
 export type User = {
-  menu: MenuProduct[];
-  username: string;
-};
+  menu: Product[]
+  username: string
+}
