@@ -4,9 +4,9 @@ import { MdOutlineEuro } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
 import { GoMegaphone } from "react-icons/go";
 import { isAvailableOptions, isPublicisedOptions } from "@/enums/select";
-import { MenuProduct } from "@/types/Product";
+import { Product } from "@/types/Product";
 
-export const getInputTextsConfig = (newProduct: MenuProduct) => [
+export const getInputTextsConfig = (newProduct: Product) => [
   {
     id: "0",
     name: "title",
@@ -37,7 +37,7 @@ export const getInputTextsConfig = (newProduct: MenuProduct) => [
   },
 ];
 
-export const getSelectInputConfig = (newProduct: MenuProduct) => [
+export const getSelectInputConfig = (newProduct: Product) => [
   {
     id: "3",
     name: "isAvailable",

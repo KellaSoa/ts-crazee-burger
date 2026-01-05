@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import { theme } from "@/theme/theme";
+import styled from "styled-components"
+import { theme } from "@/theme/theme"
 
-export default function LoaderMessage() {
+export default function LoadingMessage() {
   return (
-    <LoaderMessageStyled>
+    <LoadingMessageStyled>
       <span className="title">Chargement en cours ...</span>
-    </LoaderMessageStyled>
-  );
+    </LoadingMessageStyled>
+  )
 }
 
-const LoaderMessageStyled = styled.div`
+const LoadingMessageStyled = styled.div`
   background-color: ${theme.colors.background_white};
   box-shadow: ${theme.shadows.strong};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
@@ -24,4 +24,4 @@ const LoaderMessageStyled = styled.div`
     font-size: ${theme.fonts.size.P4};
     font-weight: ${theme.fonts.weights.regular};
   }
-`;
+`

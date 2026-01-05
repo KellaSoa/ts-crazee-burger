@@ -8,9 +8,8 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { basketAnimation } from "@/theme/animations";
 import { formatPrice } from "@/utils/maths";
 import { convertStringToBoolean } from "@/utils/string";
-
 import { useParams } from "react-router-dom";
-import { MenuProduct } from "@/types/Product";
+import { Product } from "@/types/Product";
 
 export default function BasketProducts() {
   const {
@@ -23,6 +22,7 @@ export default function BasketProducts() {
   } = useOrderContext();
 
   const { username } = useParams();
+
   const handleOnDelete = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: string
@@ -31,7 +31,7 @@ export default function BasketProducts() {
     username && handleDeleteBasketProduct(id, username);
   };
 
-  const getPrice = (menuProduct: MenuProduct) => {
+  const getPrice = (menuProduct: Product) => {
     return convertStringToBoolean(menuProduct.isAvailable)
       ? formatPrice(menuProduct.price)
       : BASKET_MESSAGE.NOT_AVAILABLE;
@@ -43,9 +43,9 @@ export default function BasketProducts() {
       className={"transition-group"}
     >
       {basket.map((basketProduct) => {
-        if (!menu) return <> </>;
+        if (menu === undefined) return <></>;
         const menuProduct = findObjectById(basketProduct.id, menu);
-        if (!menuProduct) return <> </>;
+        if (!menuProduct) return <></>;
         return (
           <CSSTransition
             appear={true}
