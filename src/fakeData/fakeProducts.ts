@@ -136,7 +136,7 @@ const LARGE: Product[] = [
   },
 ]
 
-export const fakeMenu = {
+export const fakeProducts = {
   EMPTY,
   SMALL,
   MEDIUM,
