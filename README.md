@@ -1,27 +1,12 @@
-# Crazee Burger (version Typescript en solo)
+# Crazee Burger
 
-## 1. Pour installer le projet
+## 1. Install project
 
 ```
 yarn install
 ```
 
-## 2. Pour connecter le projet au backend firebase, créer le fichier .env à la racine du projet avec les valeurs suivantes (demander à Vi les valeurs) :
-
-Si projet initilisé avec CRA (create-react-app) :
-
-```
-REACT_APP_API_KEY=
-REACT_APP_AUTH_DOMAIN=
-REACT_APP_PROJECT_ID=
-REACT_APP_STORAGE_BUCKET=
-REACT_APP_MESSAGING_SENDER_ID=
-REACT_APP_APP_ID=
-```
-
-firebase-config.js > ces variables d'environnement seront consommés via process.env.REACT_APP_API_KEY
-
-Si projet initilisé avec Vite.JS :
+## 2. Connect project with backend firebase, create file .env :
 
 ```
 VITE_APP_API_KEY = ???
@@ -32,11 +17,11 @@ VITE_APP_MESSAGING_SENDER_ID = ???
 VITE_APP_APP_ID = ???
 ```
 
-firebase-config.js > ces variables d'environnement seront consommés via import.meta.env.VITE_APP_API_KEY
+firebase-config.js > these variables will be consumed via import.meta.env.VITE_APP_API_KEY
 
-P.S. Sans ça, tu ne pourras pas accéder à la page de commande avec les bonnes valeurs du compte client. Tu seras bloqué à la page de Login.
+P.S. Without config, you won’t be able to access the order page. You’ll be stuck on the login page
 
-## 3. Pour lancer le projet
+## 3. Run projet
 
 ```
 yarn dev
