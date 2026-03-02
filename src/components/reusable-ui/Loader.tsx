@@ -4,22 +4,22 @@ import { ImSpinner8 } from "react-icons/im";
 import styled from "styled-components";
 
 type LoaderProps = {
-  variant?: FontSizeKey;
+  size?: FontSizeKey;
   color?: ColorValues;
 };
 export const Loader = ({
-  variant = "SM",
+  size = "SM",
   color = theme.colors.greyMedium,
 }: LoaderProps) => {
   return (
-    <LoaderStyled variant={variant ?? "SM"} color={color}>
+    <LoaderStyled size={size ?? "SM"} color={color}>
       <ImSpinner8 className="rotate-icon" />
     </LoaderStyled>
   );
 };
 
 type LoaderStyledProps = {
-  variant?: FontSizeKey;
+  size?: FontSizeKey;
   color?: ColorValues;
 };
 const LoaderStyled = styled.div<LoaderStyledProps>`
@@ -29,7 +29,7 @@ const LoaderStyled = styled.div<LoaderStyledProps>`
   height: 100%;
 
   .rotate-icon {
-    font-size: ${({ variant }) => theme.fonts.size[variant ?? "SM"]};
+    font-size: ${({ size }) => theme.fonts.size[size ?? "SM"]};
     animation: ${rotate} 1s linear infinite;
     color: ${({ color }) => color || theme.colors.primary};
   }
