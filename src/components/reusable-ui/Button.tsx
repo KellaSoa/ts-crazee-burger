@@ -28,7 +28,7 @@ export default function Button({
       disabled={isLoading}
     >
       {isLoading ? (
-        <Loader />
+        <Loader color={theme.colors.white} />
       ) : (
         <>
           <span>{label}</span>

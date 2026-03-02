@@ -20,9 +20,11 @@ const colors = {
   rose: "#FF99C8",
   purple: "#A01FF0",
   yellow: "#FFC300",
-}
+} as const;
 
-export type Color = typeof colors
+export type Color = typeof colors;
+export type ColorKeys = keyof typeof colors;
+export type ColorValues = Color[keyof typeof colors];
 
 const spacing = {
   xxs: "4px",
@@ -32,7 +34,7 @@ const spacing = {
   lg: "32px",
   xl: "52px",
   xxl: "84px",
-}
+};
 
 const fonts = {
   size: {
@@ -60,31 +62,33 @@ const fonts = {
     stylish: '"Amatic SC", cursive',
     openSans: '"Open Sans", sans-serif',
   },
-}
-const gridUnit = 8
+};
+
+export type FontSizeKeys = keyof typeof fonts.size;
+const gridUnit = 8;
 const borderRadius = {
   subtle: 1,
   round: "5px",
   extraRound: "15px",
   circle: "50%",
   badgeRound: "25px",
-}
+};
 
 const shadows = {
   subtle: "0px -6px 8px -2px rgba(0, 0, 0, 0.1)",
   medium: "-8px 8px 20px 0px rgb(0 0 0 / 20%)",
   strong: "0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset",
   orangeHighlight: "0 0 8px 0 rgb(255 154 35 / 100%)",
-  basket: "inset 0px 0px 20px rgba(0, 0, 0, 0.2)",
+  basket: "0px 0px 20px rgba(0, 0, 0, 0.2) inset",
   cardBasket: "-4px 4px 15px 0 rgb(0 0 0 / 20%)",
-}
+};
 
 const animations = {
   speed: {
     quick: "300ms",
     slow: "500ms",
   },
-}
+};
 
 export const theme = {
   colors,
@@ -94,4 +98,4 @@ export const theme = {
   shadows,
   spacing,
   animations,
-}
+};

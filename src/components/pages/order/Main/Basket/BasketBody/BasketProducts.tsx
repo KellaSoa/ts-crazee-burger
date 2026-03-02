@@ -3,7 +3,7 @@ import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "@/enums/product";
 import BasketCard from "./BasketCard";
 import { useOrderContext } from "@/context/OrderContext";
 import { findObjectById } from "@/utils/array";
-import { checkIfProductIsClicked } from "../../MainLeftSide/Menu/helper";
+import { checkIfProductIsClicked } from "../../MainLeftSide/CatalogProducts/helper";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { basketAnimation } from "@/theme/animations";
 import { formatPrice } from "@/utils/maths";
@@ -25,7 +25,7 @@ export default function BasketProducts() {
 
   const handleOnDelete = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    id: string
+    id: string,
   ) => {
     event.stopPropagation();
     username && handleDeleteBasketProduct(id, username);
@@ -67,7 +67,7 @@ export default function BasketProducts() {
                 onClick={() => handleProductSelected(basketProduct.id)}
                 isSelected={checkIfProductIsClicked(
                   basketProduct.id,
-                  productSelected.id
+                  productSelected.id,
                 )}
                 className={"card"}
                 price={getPrice(menuProduct)}

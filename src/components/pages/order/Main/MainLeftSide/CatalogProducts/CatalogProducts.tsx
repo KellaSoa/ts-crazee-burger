@@ -3,15 +3,15 @@ import { useOrderContext } from "@/context/OrderContext";
 import { theme } from "@/theme/theme";
 import { formatPrice } from "@/utils/maths";
 import Card from "@/components/reusable-ui/Card";
-import EmptyMenuAdmin from "./EmptyMenuAdmin";
-import EmptyMenuClient from "./EmptyMenuClient";
-import { checkIfProductIsClicked } from "./helper";
+import EmptyCatalogProductsAdmin from "./EmptyCataglogProductsAdmin";
+import EmptyCatalogProductsClient from "./EmptyCatalogProductsClient";
+import { checkIfProductIsClicked, getProductsToDisplay } from "./helper";
 import {
   EMPTY_PRODUCT,
   IMAGE_COMING_SOON,
   IMAGE_NO_STOCK,
 } from "@/enums/product";
-import { isEmpty } from "@/utils/array";
+import { getCategoryActive, isEmpty } from "@/utils/array";
 import LoadingMessage from "./LoadingMessage";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { menuAnimation } from "@/theme/animations";
@@ -19,7 +19,7 @@ import { convertStringToBoolean } from "@/utils/string";
 import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated";
 import { useParams } from "react-router-dom";
 
-export default function Menu() {
+export default function CatalogProducts() {
   const {
     menu,
     isModeAdmin,
@@ -30,6 +30,8 @@ export default function Menu() {
     handleAddToBasket,
     handleDeleteBasketProduct,
     handleProductSelected,
+    categories,
+    categoryAll,
   } = useOrderContext();
   // state
 
@@ -38,7 +40,7 @@ export default function Menu() {
   // comportements (gestionnaires d'événement ou "event handlers")
   const handleCardDelete = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    idProductToDelete: string
+    idProductToDelete: string,
   ) => {
     event.stopPropagation();
     if (!username) return;
@@ -50,7 +52,7 @@ export default function Menu() {
 
   const handleAddButton = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    idProductToAdd: string
+    idProductToAdd: string,
   ) => {
     event.stopPropagation();
     username && handleAddToBasket(idProductToAdd, username);
@@ -64,13 +66,20 @@ export default function Menu() {
   if (menu === undefined) return <LoadingMessage />;
 
   if (isEmpty(menu)) {
-    if (!isModeAdmin) return <EmptyMenuClient />;
-    if (username) return <EmptyMenuAdmin onReset={() => resetMenu(username)} />;
+    if (!isModeAdmin) return <EmptyCatalogProductsClient />;
+    if (username)
+      return <EmptyCatalogProductsAdmin onReset={() => resetMenu(username)} />;
   }
+  const activeCategory = getCategoryActive(categories);
+  const productsToDisplay = getProductsToDisplay(
+    categoryAll,
+    menu,
+    activeCategory,
+  );
 
   return (
-    <TransitionGroup component={MenuStyled} className="menu">
-      {menu.map(
+    <TransitionGroup component={CatalogProductsStyled} className="menu">
+      {productsToDisplay.map(
         ({
           id,
           title,
@@ -103,22 +112,22 @@ export default function Menu() {
               </div>
             </CSSTransition>
           );
-        }
+        },
       )}
     </TransitionGroup>
   );
 }
 
-const MenuStyled = styled.div`
-  background: ${theme.colors.background_white};
+const CatalogProductsStyled = styled.div`
+  background: transparent;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
   grid-row-gap: 100px;
-  padding: 50px 50px 150px;
+  padding: 20px 50px 150px;
   justify-items: center;
-  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
   overflow-y: scroll;
+  margin-bottom: 220px;
 
   ${menuAnimation}
 
