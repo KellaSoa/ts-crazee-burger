@@ -64,7 +64,7 @@ const fonts = {
   },
 };
 
-export type FontSizeKeys = keyof typeof fonts.size;
+export type FontSizeKey = keyof typeof fonts.size;
 const gridUnit = 8;
 const borderRadius = {
   subtle: 1,
