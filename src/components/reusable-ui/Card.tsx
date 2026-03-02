@@ -3,7 +3,7 @@ import { theme } from "@/theme/theme";
 import Button from "./Button";
 import { TiDelete } from "react-icons/ti";
 import { fadeInFromRight, fadeInFromTop } from "@/theme/animations";
-import { Chips } from "../pages/order/Main/MainLeftSide/Menu/Chips";
+import { Chips } from "@/components/pages/order/Main/MainLeftSide/CatalogProducts/Chips";
 import { Category } from "@/types/Category";
 
 type CardProps = {

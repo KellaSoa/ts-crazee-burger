@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/theme/theme";
 import { BASKET_MESSAGE } from "@/enums/product";
+import { Loader } from "@/components/reusable-ui/Loader";
 
 type EmptyBasketProps = {
   isLoading: boolean;
@@ -10,7 +11,7 @@ export default function EmptyBasket({ isLoading }: EmptyBasketProps) {
   return (
     <EmptyBasketStyled>
       <span className="empty-message">
-        {isLoading ? BASKET_MESSAGE.LOADING : BASKET_MESSAGE.EMPTY}
+        {isLoading ? <Loader size="P3" /> : BASKET_MESSAGE.EMPTY}
       </span>
     </EmptyBasketStyled>
   );
