@@ -5,6 +5,7 @@ import { FiPackage } from "react-icons/fi";
 import { GoMegaphone } from "react-icons/go";
 import { isAvailableOptions, isPublicisedOptions } from "@/enums/select";
 import { Product } from "@/types/Product";
+import { IoPricetag } from "react-icons/io5";
 
 export const getInputTextsConfig = (newProduct: Product) => [
   {
@@ -28,6 +29,15 @@ export const getInputTextsConfig = (newProduct: Product) => [
   },
   {
     id: "2",
+    name: "categories",
+    value: newProduct.price ? newProduct.price : "",
+    placeholder: "Categories",
+    Icon: <IoPricetag />,
+    version: "minimalist",
+    className: "categories",
+  },
+  {
+    id: "3",
     name: "price",
     value: newProduct.price ? newProduct.price : "",
     placeholder: "Prix",

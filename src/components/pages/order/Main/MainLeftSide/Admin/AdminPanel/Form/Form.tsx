@@ -28,7 +28,7 @@ const Form = React.forwardRef<HTMLInputElement, FormProps>(
         <div className="form-footer">{children}</div>
       </FormStyled>
     );
-  }
+  },
 );
 
 export default Form;
@@ -39,7 +39,7 @@ const FormStyled = styled.form`
   grid-template-columns: 1fr 3fr;
   grid-template-rows: repeat(4, 1fr);
   height: 100%;
-  width: 70%;
+  width: 100%;
   grid-column-gap: 20px;
   grid-row-gap: 8px;
 
