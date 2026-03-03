@@ -5,10 +5,17 @@ import styled from "styled-components";
 import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
 import { Product } from "@/types/Product";
 import { FormEvents } from "@/types/FormEvents";
+import MultiSelect from "@/components/reusable-ui/MultiSelect/Multiselect";
 
 export type InputsProps = {
   product: Product;
 } & FormEvents;
+
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
@@ -39,13 +46,14 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
         </div>
         {/* CATEGORIES */}
         <div className="categories">
-          <TextInput
+          {/*<TextInput
             {...inputTexts[2]}
             onChange={onChange}
             version="minimalist"
             onFocus={onFocus}
             onBlur={onBlur}
-          />
+          />*/}
+          <MultiSelect menuPlacement="auto" options={options} />
         </div>
         {/* PRICE */}
         <TextInput
