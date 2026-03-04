@@ -1,3 +1,4 @@
+import { fakeCategories } from "@/fakeData/fakeCategories";
 import { Product } from "@/types/Product";
 
 export const EMPTY_PRODUCT: Product = {
@@ -7,6 +8,7 @@ export const EMPTY_PRODUCT: Product = {
   price: 0,
   isAvailable: true,
   isPublicised: false,
+  categories: fakeCategories.SMALL,
 };
 
 export const IMAGE_COMING_SOON = "/images/coming-soon.png";

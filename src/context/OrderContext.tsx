@@ -37,7 +37,7 @@ type OrderContextType = {
   handleAddToBasket: (idProductToAdd: string, username: string) => void;
   handleDeleteBasketProduct: (
     idBasketProduct: string,
-    username: string
+    username: string,
   ) => void;
   handleProductSelected: (idProductClicked: string) => Promise<void>;
   hidePanel: () => void;
@@ -56,10 +56,10 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined); // 
 
 // 2. Installation du context
 export const OrderContextProvider = ({ children }: PropsWithChildren) => {
-  const [isModeAdmin, setIsModeAdmin] = useState(false);
+  const [isModeAdmin, setIsModeAdmin] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
-    ADMIN_TAB_LABEL.ADD
+    ADMIN_TAB_LABEL.ADD,
   );
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
   const [productSelected, setProductSelected] =
@@ -141,7 +141,7 @@ export const useOrderContext = () => {
   const orderContextData = useContext(OrderContext);
   if (orderContextData === undefined)
     throw new Error(
-      "useOrderContext() can only be used within OrderContextProvider"
+      "useOrderContext() can only be used within OrderContextProvider",
     );
 
   return orderContextData;

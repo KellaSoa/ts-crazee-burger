@@ -6,21 +6,27 @@ import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
 import { Product } from "@/types/Product";
 import { FormEvents } from "@/types/FormEvents";
 import MultiSelect from "@/components/reusable-ui/MultiSelect/Multiselect";
+import { useOrderContext } from "@/context/OrderContext";
 
 export type InputsProps = {
   product: Product;
 } & FormEvents;
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
     const inputTexts = getInputTextsConfig(product);
     const inputSelects = getSelectInputConfig(product);
+    const { categories } = useOrderContext();
+
+    const onChangeMulti = (selectedCategories: unknown) => {
+      const eventMulti = {
+        target: {
+          name: "categories",
+          value: selectedCategories,
+        },
+      } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
+      onChange && onChange(eventMulti);
+    };
 
     // affichage
     return (
@@ -53,7 +59,11 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onFocus={onFocus}
             onBlur={onBlur}
           />*/}
-          <MultiSelect menuPlacement="auto" options={options} />
+          <MultiSelect
+            menuPlacement="auto"
+            options={categories}
+            onChange={onChangeMulti}
+          />
         </div>
         {/* PRICE */}
         <TextInput

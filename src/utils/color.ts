@@ -24,21 +24,21 @@ export const isHexColor = (color: string): boolean => {
 export const getBgColorToApply = (
   data: { color: string },
   isSelected: boolean,
-  isFocused: boolean
+  isFocused: boolean,
 ) => {
   let bgColor = "lightgrey";
   if ("color" in data) {
     bgColor = isSelected
       ? applyOpacity(data.color ?? theme.colors.redSecondary, 0.25)
       : isFocused
-      ? applyOpacity(data.color ?? theme.colors.redSecondary, 0.1)
-      : "red";
+        ? applyOpacity(data.color ?? theme.colors.redSecondary, 0.1)
+        : "transparent";
   } else {
     bgColor = isSelected
       ? "blue"
       : isFocused
-      ? theme.colors.greyLight
-      : "white";
+        ? theme.colors.greyLight
+        : "white";
   }
   return bgColor;
 };

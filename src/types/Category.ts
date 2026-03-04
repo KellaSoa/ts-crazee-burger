@@ -5,7 +5,7 @@ export type Category = {
   label: string;
   color: Color[keyof Color] | "";
   iconName: IconName;
-  value?: string;
+  value: string;
   isActive?: boolean;
 };
 
