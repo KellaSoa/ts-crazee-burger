@@ -6,6 +6,6 @@ type Option = {
   label: string;
 };
 
-export default function MultiSelect(props: SelectProps<Option, true>) {
+export default function MultipleSelect(props: SelectProps<Option, true>) {
   return <Select {...props} isMulti styles={stylesMultiSelect} />;
 }

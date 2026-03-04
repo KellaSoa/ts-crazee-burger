@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
 import { Product } from "@/types/Product";
 import { FormEvents } from "@/types/FormEvents";
-import MultiSelect from "@/components/reusable-ui/MultiSelect/Multiselect";
+import MultipleSelect from "@/components/reusable-ui/MultiSelect/MultipleSelect";
 import { useOrderContext } from "@/context/OrderContext";
 
 export type InputsProps = {
@@ -59,7 +59,7 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onFocus={onFocus}
             onBlur={onBlur}
           />*/}
-          <MultiSelect
+          <MultipleSelect
             menuPlacement="auto"
             options={categories}
             onChange={onChangeMulti}
