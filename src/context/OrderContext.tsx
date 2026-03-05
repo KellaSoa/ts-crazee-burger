@@ -59,7 +59,7 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined); // 
 
 // 2. Installation du context
 export const OrderContextProvider = ({ children }: PropsWithChildren) => {
-  const [isModeAdmin, setIsModeAdmin] = useState(true);
+  const [isModeAdmin, setIsModeAdmin] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
     ADMIN_TAB_LABEL.PRODUCT_ADD,
