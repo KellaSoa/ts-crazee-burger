@@ -2,11 +2,14 @@ import styled from "styled-components";
 import { theme } from "@/theme/theme";
 import { FiCheck } from "react-icons/fi";
 
-export default function SubmitMessage() {
+type SubmitMessageProps = {
+  label?: string;
+};
+export default function SubmitMessage({ label }: SubmitMessageProps) {
   return (
     <SubmitMessageStyled>
       <FiCheck className="icon" />
-      <span className="message">Ajouté avec succès !</span>
+      <span className="message">{label}</span>
     </SubmitMessageStyled>
   );
 }

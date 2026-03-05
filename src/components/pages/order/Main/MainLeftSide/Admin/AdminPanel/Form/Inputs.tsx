@@ -7,6 +7,8 @@ import { Product } from "@/types/Product";
 import { FormEvents } from "@/types/FormEvents";
 import MultipleSelect from "@/components/reusable-ui/MultiSelect/MultipleSelect";
 import { useOrderContext } from "@/context/OrderContext";
+import { IoPricetag } from "react-icons/io5";
+import { ADMIN_TAB_LABEL } from "@/enums/tabs";
 
 export type InputsProps = {
   product: Product;
@@ -16,7 +18,8 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
     const inputTexts = getInputTextsConfig(product);
     const inputSelects = getSelectInputConfig(product);
-    const { categories } = useOrderContext();
+    const { categories, productSelected, newProduct, currentTabSelected } =
+      useOrderContext();
 
     const onChangeMulti = (selectedCategories: unknown) => {
       const eventMulti = {
@@ -63,6 +66,15 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
             menuPlacement="auto"
             options={categories}
             onChange={onChangeMulti}
+            customIcon={IoPricetag}
+            placeholder="Catégorie (ex: Boisson)"
+            value={
+              currentTabSelected === ADMIN_TAB_LABEL.PRODUCT_ADD
+                ? newProduct.categories
+                : productSelected.categories
+            }
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
         {/* PRICE */}

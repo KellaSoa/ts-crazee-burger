@@ -13,6 +13,7 @@ import { BasketProductQuantity, Product } from "@/types/Product";
 import { ADMIN_TAB_LABEL } from "@/enums/tabs";
 import { useCategories } from "@/hooks/useCategories";
 import { Category } from "@/types/Category";
+import { DEFAULT_CATEGORY } from "@/enums/categories";
 
 type OrderContextType = {
   isModeAdmin: boolean;
@@ -49,6 +50,8 @@ type OrderContextType = {
   toggleAllCategories: () => void;
   toggleMenusCategory: () => void;
   categoryMenus: Category;
+  newCategory: Category;
+  setNewCategory: React.Dispatch<React.SetStateAction<Category>>;
 };
 
 // 1. Création du context
@@ -56,12 +59,13 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined); // 
 
 // 2. Installation du context
 export const OrderContextProvider = ({ children }: PropsWithChildren) => {
-  const [isModeAdmin, setIsModeAdmin] = useState(true);
+  const [isModeAdmin, setIsModeAdmin] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
-    ADMIN_TAB_LABEL.ADD,
+    ADMIN_TAB_LABEL.PRODUCT_ADD,
   );
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
+  const [newCategory, setNewCategory] = useState(DEFAULT_CATEGORY);
   const [productSelected, setProductSelected] =
     useState<Product>(EMPTY_PRODUCT);
   const titleEditRef = useRef<HTMLInputElement>(null);
@@ -85,7 +89,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     const productClickedOn = findObjectById(idProductClicked, menu);
     if (!productClickedOn) return;
     await setIsCollapsed(false);
-    await setCurrentTabSelected(ADMIN_TAB_LABEL.EDIT);
+    await setCurrentTabSelected(ADMIN_TAB_LABEL.PRODUCT_EDIT);
     await setProductSelected(productClickedOn);
     // titleEditRef.current && titleEditRef.current.focus() // ériture équivalente
     titleEditRef.current?.focus();
@@ -127,6 +131,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     toggleAllCategories,
     toggleMenusCategory,
     categoryMenus,
+    newCategory,
+    setNewCategory,
   };
 
   return (
