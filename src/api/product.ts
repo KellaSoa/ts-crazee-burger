@@ -2,17 +2,20 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { Product } from "@/types/Product";
 
-export const updateMenus = async (userId: string, menuUpdated: Product[]) => {
+export const updateProducts = async (
+  userId: string,
+  productsUpdated: Product[],
+) => {
   const cachette = doc(db, "users", userId);
 
   const nourriture = {
-    menu: menuUpdated,
+    products: productsUpdated,
   };
   //setDoc(cachette, nourriture)
   await updateDoc(cachette, nourriture);
 };
 
-export const getMenu = async (
+export const getProducts = async (
   idUser: string,
 ): Promise<Product[] | undefined> => {
   //const docRef = doc(CHEMIN)
@@ -20,7 +23,7 @@ export const getMenu = async (
 
   const docSnapshot = await getDoc(docRef);
   if (docSnapshot.exists()) {
-    const { menu } = docSnapshot.data();
-    return menu as Product[];
+    const { products } = docSnapshot.data();
+    return products as Product[];
   }
 };

@@ -26,7 +26,7 @@ export default function ProductEditForm() {
     };
 
     setProductSelected(productBeingUpdated); // cette ligne update le formulaire
-    username && handleEdit(productBeingUpdated, username); // cette ligne update le menu
+    username && handleEdit(productBeingUpdated, username); // cette ligne update le products
   };
 
   const handleOnFocus = (

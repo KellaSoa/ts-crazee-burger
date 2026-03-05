@@ -1,51 +1,63 @@
-import styled from "styled-components"
-import { theme } from "@/theme/theme"
-import Main from "./Main/Main"
-import Navbar from "./Navbar/Navbar"
-import { initialiseUserSession } from "./helpers/initialiseUserSession"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { useOrderContext } from "@/context/OrderContext"
-import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts"
-import { getLocalStorage, setLocalStorage } from "@/utils/window"
-import { useCreateKeyboardShortcut } from "@/hooks/useCreateKeyboardShortcut"
+import styled from "styled-components";
+import { theme } from "@/theme/theme";
+import Main from "./Main/Main";
+import Navbar from "./Navbar/Navbar";
+import { initialiseUserSession } from "./helpers/initialiseUserSession";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useOrderContext } from "@/context/OrderContext";
+import { ModalShortcuts } from "./Main/MainLeftSide/Admin/ModalShortcuts";
+import { getLocalStorage, setLocalStorage } from "@/utils/window";
+import { useCreateKeyboardShortcut } from "@/hooks/useCreateKeyboardShortcut";
 
 export default function OrderPage() {
   // state
-  const { username } = useParams()
-  const { setMenu, setBasket, isModeAdmin, setIsModeAdmin, hidePanel, setCategories } = useOrderContext()
-  const [isModalShortcutsVisible, setIsModalShortcutsVisible] = useState(getLocalStorage("isModalShortcutsVisible") as boolean | null)
+  const { username } = useParams();
+  const {
+    setProducts,
+    setBasket,
+    isModeAdmin,
+    setIsModeAdmin,
+    hidePanel,
+    setCategories,
+  } = useOrderContext();
+  const [isModalShortcutsVisible, setIsModalShortcutsVisible] = useState(
+    getLocalStorage("isModalShortcutsVisible") as boolean | null,
+  );
   if (isModalShortcutsVisible === null) {
-    setIsModalShortcutsVisible(true)
-    setLocalStorage("isModalShortcutsVisible", true)
+    setIsModalShortcutsVisible(true);
+    setLocalStorage("isModalShortcutsVisible", true);
   }
 
   const deletePermanently = () => {
-    setLocalStorage("isModalShortcutsVisible", false)
-    setIsModalShortcutsVisible(false)
-  }
+    setLocalStorage("isModalShortcutsVisible", false);
+    setIsModalShortcutsVisible(false);
+  };
 
-  useCreateKeyboardShortcut("i", () => setIsModeAdmin(!isModeAdmin))
-  useCreateKeyboardShortcut("j", () => hidePanel())
+  useCreateKeyboardShortcut("i", () => setIsModeAdmin(!isModeAdmin));
+  useCreateKeyboardShortcut("j", () => hidePanel());
 
   // 1e possibilité : vérification via une condition dans le useEffect()
   // 2e possibilité : non-null assertion operator : "!"
   // 3e possibilité : fall-back value (valeur de secours), nullish coalescing (opérateur de coalescence des nuls)
 
   useEffect(() => {
-    if (username) initialiseUserSession(username, setMenu, setBasket, setCategories)
-  }, [])
+    if (username)
+      initialiseUserSession(username, setProducts, setBasket, setCategories);
+  }, []);
 
   //affichage (render)
   return (
     <OrderPageStyled>
-      {isModalShortcutsVisible && isModeAdmin && <ModalShortcuts onClick={deletePermanently} />}
+      {isModalShortcutsVisible && isModeAdmin && (
+        <ModalShortcuts onClick={deletePermanently} />
+      )}
       <div className="container">
         <Navbar />
         <Main />
       </div>
     </OrderPageStyled>
-  )
+  );
 }
 
 const OrderPageStyled = styled.div`
@@ -69,4 +81,4 @@ const OrderPageStyled = styled.div`
     top: 40px;
     left: 40px;
   }
-`
+`;

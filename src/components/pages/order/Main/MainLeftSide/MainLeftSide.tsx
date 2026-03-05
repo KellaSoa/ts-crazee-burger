@@ -8,11 +8,11 @@ import { Filters } from "./Filters";
 import LoadingMessage from "./CatalogProducts/LoadingMessage";
 
 export default function MainLeftSide() {
-  const { isModeAdmin, menu } = useOrderContext();
+  const { isModeAdmin, products } = useOrderContext();
 
   return (
     <MainLeftSideStyled>
-      {menu === undefined ? (
+      {products === undefined ? (
         <LoadingMessage />
       ) : (
         <div className="filters-and-catalog-products">

@@ -31,7 +31,7 @@ export const createUser = async (userId: string): Promise<User> => {
   // NOURRITURE
   const newUserToCreate: User = {
     username: userId,
-    menu: fakeProducts.MEDIUM,
+    products: NEW_USER_BY_DEFAULT.products,
     categories: NEW_USER_BY_DEFAULT.categories,
   };
 

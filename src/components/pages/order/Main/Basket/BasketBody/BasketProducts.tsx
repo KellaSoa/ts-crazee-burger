@@ -16,7 +16,7 @@ export default function BasketProducts() {
     basket,
     isModeAdmin,
     handleDeleteBasketProduct,
-    menu,
+    products,
     handleProductSelected,
     productSelected,
   } = useOrderContext();
@@ -31,9 +31,9 @@ export default function BasketProducts() {
     username && handleDeleteBasketProduct(id, username);
   };
 
-  const getPrice = (menuProduct: Product) => {
-    return convertStringToBoolean(menuProduct.isAvailable)
-      ? formatPrice(menuProduct.price)
+  const getPrice = (product: Product) => {
+    return convertStringToBoolean(product.isAvailable)
+      ? formatPrice(product.price)
       : BASKET_MESSAGE.NOT_AVAILABLE;
   };
 
@@ -43,9 +43,9 @@ export default function BasketProducts() {
       className={"transition-group"}
     >
       {basket.map((basketProduct) => {
-        if (menu === undefined) return <></>;
-        const menuProduct = findObjectById(basketProduct.id, menu);
-        if (!menuProduct) return <></>;
+        if (products === undefined) return <></>;
+        const productFromProducts = findObjectById(basketProduct.id, products);
+        if (!productFromProducts) return <></>;
         return (
           <CSSTransition
             appear={true}
@@ -55,10 +55,10 @@ export default function BasketProducts() {
           >
             <div className="card-container">
               <BasketCard
-                {...menuProduct}
+                {...productFromProducts}
                 imageSource={
-                  menuProduct.imageSource
-                    ? menuProduct.imageSource
+                  productFromProducts.imageSource
+                    ? productFromProducts.imageSource
                     : IMAGE_COMING_SOON
                 }
                 quantity={basketProduct.quantity}
@@ -70,8 +70,10 @@ export default function BasketProducts() {
                   productSelected.id,
                 )}
                 className={"card"}
-                price={getPrice(menuProduct)}
-                isPublicised={convertStringToBoolean(menuProduct.isPublicised)}
+                price={getPrice(productFromProducts)}
+                isPublicised={convertStringToBoolean(
+                  productFromProducts.isPublicised,
+                )}
               />
             </div>
           </CSSTransition>

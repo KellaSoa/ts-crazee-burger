@@ -1,5 +1,5 @@
-import { css, keyframes } from "styled-components"
-import { theme } from "@/theme/theme"
+import { css, keyframes } from "styled-components";
+import { theme } from "@/theme/theme";
 
 export const fadeIn = keyframes`
   0% {
@@ -9,7 +9,7 @@ export const fadeIn = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;
 
 export const fadeInFromRight = keyframes`
   0% {
@@ -23,7 +23,7 @@ export const fadeInFromRight = keyframes`
     opacity: 1;
     transform: translateX(0);
   }
-`
+`;
 
 export const fadeInFromTop = keyframes`
   0% {
@@ -37,7 +37,7 @@ export const fadeInFromTop = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`
+`;
 
 export const fadeInFromBottom = keyframes`
   0%{
@@ -50,7 +50,7 @@ export const fadeInFromBottom = keyframes`
     opacity: 1;
   }
 
-`
+`;
 
 export const adminAnimation = css`
   .admin-appear {
@@ -62,7 +62,7 @@ export const adminAnimation = css`
       transition: all 500ms;
     }
   }
-`
+`;
 
 export const basketAnimation = css`
   .animation-basket-appear {
@@ -106,14 +106,14 @@ export const basketAnimation = css`
       transition: ${theme.animations.speed.quick};
     }
   }
-`
+`;
 
-export const menuAnimation = css`
+export const productsAnimation = css`
   /* MOUNTING */
-  .menu-animation-enter {
+  .products-animation-enter {
     opacity: 0.01;
     transform: translateX(-120px);
-    &.menu-animation-enter-active {
+    &.products-animation-enter-active {
       opacity: 1;
       transform: translateX(0);
       transition: all ${theme.animations.speed.quick} ease-out;
@@ -121,15 +121,15 @@ export const menuAnimation = css`
   }
 
   /* UNMOUNTING */
-  .menu-animation-exit {
+  .products-animation-exit {
     opacity: 1;
     transform: translateY(0);
-    &.menu-animation-exit-active {
+    &.products-animation-exit-active {
       opacity: 0.01;
       transition: ${theme.animations.speed.quick} ease-out;
     }
   }
-`
+`;
 
 export const rotate = keyframes`
   0% { 
@@ -139,7 +139,7 @@ export const rotate = keyframes`
   100% {
     transform: rotate(360deg); 
   }
-`
+`;
 
 export const chipAnimation = keyframes`
   0% {
@@ -152,7 +152,7 @@ export const chipAnimation = keyframes`
     opacity: 1;
     transform: translateY(0);
   }
-`
+`;
 
 export const badgeAnimation = keyframes`
   0% {
@@ -162,4 +162,4 @@ export const badgeAnimation = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;

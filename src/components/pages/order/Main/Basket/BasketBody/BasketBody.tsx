@@ -4,12 +4,12 @@ import EmptyBasket from "./EmptyBasket";
 import BasketProducts from "./BasketProducts";
 
 export default function BasketBody() {
-  const { basket, menu } = useOrderContext();
+  const { basket, products } = useOrderContext();
 
   return (
     <>
       {isEmpty(basket) ? (
-        <EmptyBasket isLoading={menu === undefined} />
+        <EmptyBasket isLoading={products === undefined} />
       ) : (
         <BasketProducts />
       )}

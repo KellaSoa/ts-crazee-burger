@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useMenu } from "@/hooks/useMenu";
+import { useProducts } from "@/hooks/useProducts";
 import { useBasket } from "@/hooks/useBasket";
 import { findObjectById } from "@/utils/array";
 import { EMPTY_PRODUCT } from "@/enums/product";
@@ -22,11 +22,11 @@ type OrderContextType = {
   setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   currentTabSelected: ADMIN_TAB_LABEL;
   setCurrentTabSelected: React.Dispatch<React.SetStateAction<ADMIN_TAB_LABEL>>;
-  menu: Product[] | undefined;
-  setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>;
+  products: Product[] | undefined;
+  setProducts: React.Dispatch<React.SetStateAction<Product[] | undefined>>;
   handleAdd: (newProduct: Product, username: string) => void;
   handleDelete: (idOfProductToDelete: string, username: string) => void;
-  resetMenu: (username: string) => void;
+  resetProducts: (username: string) => void;
   newProduct: Product;
   setNewProduct: React.Dispatch<React.SetStateAction<Product>>;
   productSelected: Product;
@@ -69,8 +69,14 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   const [productSelected, setProductSelected] =
     useState<Product>(EMPTY_PRODUCT);
   const titleEditRef = useRef<HTMLInputElement>(null);
-  const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } =
-    useMenu();
+  const {
+    products,
+    setProducts,
+    handleAdd,
+    handleDelete,
+    handleEdit,
+    resetProducts,
+  } = useProducts();
   const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } =
     useBasket();
   const {
@@ -85,8 +91,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   } = useCategories();
 
   const handleProductSelected = async (idProductClicked: string) => {
-    if (!isModeAdmin || !menu) return;
-    const productClickedOn = findObjectById(idProductClicked, menu);
+    if (!isModeAdmin || !products) return;
+    const productClickedOn = findObjectById(idProductClicked, products);
     if (!productClickedOn) return;
     await setIsCollapsed(false);
     await setCurrentTabSelected(ADMIN_TAB_LABEL.PRODUCT_EDIT);
@@ -106,11 +112,11 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     setIsCollapsed,
     currentTabSelected,
     setCurrentTabSelected,
-    menu,
-    setMenu,
+    products,
+    setProducts,
     handleAdd,
     handleDelete,
-    resetMenu,
+    resetProducts,
     newProduct,
     setNewProduct,
     productSelected,

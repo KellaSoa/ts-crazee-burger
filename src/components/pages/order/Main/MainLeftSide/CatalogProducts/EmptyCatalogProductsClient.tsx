@@ -1,26 +1,26 @@
 import styled from "styled-components";
 import { theme } from "@/theme/theme";
 
-export default function EmptyMenuClient() {
+export default function EmptyProductsClient() {
   return (
-    <EmptyMenuStyled>
+    <EmptyProductsStyled>
       <span className="title">Victime de notre succès ! :D</span>
       <span className="description">
         De nouvelles recettes sont en cours de préparation.
       </span>
       <span className="description">À très vite !</span>
-    </EmptyMenuStyled>
+    </EmptyProductsStyled>
   );
 }
 
-const EmptyMenuStyled = styled.div`
+const EmptyProductsStyled = styled.div`
   background-color: ${theme.colors.background_white};
   box-shadow: ${theme.shadows.strong};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; // permet de diminuer la largeur du bouton resetMenu
+  align-items: center; // permet de diminuer la largeur du bouton resetProducts
 
   .title,
   .description {

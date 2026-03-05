@@ -4,7 +4,7 @@ import { theme } from "@/theme/theme";
 export default function EditInfoMessage() {
   return (
     <EditInfoMessageStyled className="sentence">
-      Cliquer sur un produit du menu pour le modifier{" "}
+      Cliquer sur un produit de la liste pour le modifier{" "}
       <span className="live-update">en temps réel</span>
     </EditInfoMessageStyled>
   );
