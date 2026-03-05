@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 
 import { EMPTY_CATEGORY } from "@/enums/categories";
 import z from "zod";
+import { displayToastNotification } from "@/utils/toast";
 
 const categoryIconSchema = z.enum([
   "sandwich",
@@ -64,9 +65,10 @@ export default function CategoryAddForm() {
 
     const result = categoryFormSchemaStrict.safeParse(newCategoryToAdd);
     if (!result.success) {
-      result.error.issues.map((error) => {
-        alert(`${error.message}`);
-      });
+      result.error.issues.map((error) =>
+        displayToastNotification(`${error.message}`, "error"),
+      );
+
       return;
     }
 
