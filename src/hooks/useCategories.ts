@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { deepClone } from "@/utils/array";
 //@ts-ignore
-import { syncBothMenus } from "../api/product";
+import { updateMenus } from "../api/product";
 import { fakeCategories } from "@/fakeData/fakeCategories";
 import { CATEGORY_ALL } from "@/enums/categories";
 import { CATEGORY_MENUS } from "@/enums/menus";
@@ -11,7 +11,7 @@ import { Category } from "@/types/Category";
 // ensemble des catégories disponibles pour tous les produits du catalog
 export const useCategories = () => {
   const [categories, setCategories] = useState<Category[]>(
-    fakeCategories.LARGE
+    fakeCategories.LARGE,
   );
   const [categoryAll, setCategoryAll] = useState<Category>(CATEGORY_ALL);
   const [categoryMenus, setCategoryMenus] = useState<Category>(CATEGORY_MENUS);
@@ -33,7 +33,7 @@ export const useCategories = () => {
   //@ts-ignore
   const handleDeleteCategory = (
     idOfProductToDelete: string,
-    username: string
+    username: string,
   ) => {
     if (!categories) return;
     //1. copy du state
@@ -41,12 +41,12 @@ export const useCategories = () => {
 
     //2. manip de la copie state
     const menuUpdated = menuCopy.filter(
-      (product) => product.id !== idOfProductToDelete
+      (product) => product.id !== idOfProductToDelete,
     );
 
     //3. update du state
     setCategories(menuUpdated);
-    // syncBothMenus(username, menuUpdated)
+    // updateMenus(username, menuUpdated)
   };
 
   const toggleAllCategories = () => {
@@ -94,7 +94,7 @@ export const useCategories = () => {
   //@ts-ignore
   const handleEditCategory = (
     categoryBeingEdited: Category,
-    username: string
+    username: string,
   ) => {
     // 1. copie du state (deep clone)
     if (!categories) return;
@@ -102,19 +102,19 @@ export const useCategories = () => {
 
     // 2. manip de la copie du state
     const indexOfProductToEdit = categories.findIndex(
-      (menuProduct) => menuProduct.id === categoryBeingEdited.id
+      (menuProduct) => menuProduct.id === categoryBeingEdited.id,
     );
     menuCopy[indexOfProductToEdit] = categoryBeingEdited;
 
     // 3. update du state
     setCategories(menuCopy);
-    // syncBothMenus(username, menuCopy)
+    // updateMenus(username, menuCopy)
   };
 
   //@ts-ignore
   const resetCategories = (username: string) => {
     setCategories(fakeCategories.SMALL);
-    // syncBothMenus(username, fakeMenu.SMALL)
+    // updateMenus(username, fakeMenu.SMALL)
   };
 
   return {
