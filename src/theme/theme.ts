@@ -23,7 +23,7 @@ const colors = {
 } as const;
 
 export type Color = typeof colors;
-export type ColorKeys = keyof typeof colors;
+export type ColorKeys = keyof Color;
 export type ColorValues = Color[keyof typeof colors];
 
 const spacing = {

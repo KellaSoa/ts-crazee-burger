@@ -1,10 +1,34 @@
 import { IoIosPricetag } from "react-icons/io";
 import { PiPaintBucketFill } from "react-icons/pi";
 import { BsFillCameraFill } from "react-icons/bs";
-import { categoryIconsOptions, colorsOptions } from "@/enums/select";
+import {
+  categoryIconsOptions,
+  CategoryOptions,
+  colorsOptions,
+} from "@/enums/select";
 import { Category } from "@/types/Category";
 
-export const getCategoryTextInputsConfig = (newCategory: Category) => [
+type BaseFileds = {
+  id: string;
+  name: string;
+  value: string;
+
+  Icon: JSX.Element;
+  //version: string;
+  className: string;
+};
+
+type CategoryTextInputConfig = BaseFileds & {
+  version: string;
+  placeholder: string;
+};
+type CategorySelectInputConfig = BaseFileds & {
+  options: CategoryOptions;
+  selectPlaceholder: string;
+};
+export const getCategoryTextInputsConfig = (
+  newCategory: Category,
+): CategoryTextInputConfig[] => [
   {
     id: "1",
     name: "label",
@@ -16,7 +40,9 @@ export const getCategoryTextInputsConfig = (newCategory: Category) => [
   },
 ];
 
-export const getCategorySelectInputConfig = (newCategory: Category) => [
+export const getCategorySelectInputConfig = (
+  newCategory: Category,
+): CategorySelectInputConfig[] => [
   {
     id: "2",
     name: "color",

@@ -1,4 +1,4 @@
-import { Color, theme } from "@/theme/theme";
+import { Color, ColorKeys, theme } from "@/theme/theme";
 import { ICON_NAMES, IconName } from "@/types/Category";
 
 export const isAvailableOptions = [
@@ -17,10 +17,11 @@ type SelectLabel = "optionValue" | "label";
 
 type CategoryIconsOptionsKey = SelectLabel;
 
-export const colorsOptions: Record<
-  SelectLabel,
-  Color[keyof Color] | CategoryColors
->[] = [
+type ColorOptions = Record<SelectLabel, Color[ColorKeys] | CategoryColors>[];
+type CategoryIconsOptions = Record<CategoryIconsOptionsKey, IconName>[];
+
+export type CategoryOptions = ColorOptions | CategoryIconsOptions;
+export const colorsOptions: ColorOptions = [
   { optionValue: theme.colors.primary, label: "orange" },
   { optionValue: theme.colors.blue, label: "bleu" },
   { optionValue: theme.colors.rose, label: "rose" },
@@ -29,8 +30,9 @@ export const colorsOptions: Record<
   { optionValue: theme.colors.red, label: "rouge" },
 ];
 
-export const categoryIconsOptions: Record<CategoryIconsOptionsKey, IconName>[] =
-  ICON_NAMES.map((iconName) => ({
+export const categoryIconsOptions: CategoryIconsOptions = ICON_NAMES.map(
+  (iconName) => ({
     optionValue: iconName,
     label: iconName,
-  }));
+  }),
+);
