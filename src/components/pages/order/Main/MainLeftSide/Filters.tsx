@@ -74,7 +74,9 @@ const FiltersStyled = styled.div`
   background-color: ${theme.colors.white};
   border-radius: ${theme.borderRadius.extraRound};
   box-shadow: ${theme.shadows.medium};
-
+  position: sticky;
+  top: 30px;
+  z-index: 10;
   .filter {
     cursor: pointer;
   }
