@@ -4,7 +4,7 @@ import { deepClone } from "@/utils/array";
 import { updateProducts } from "../api/product";
 import { fakeCategories } from "@/fakeData/fakeCategories";
 import { CATEGORY_ALL } from "@/enums/categories";
-import { CATEGORY_MENUS } from "@/enums/menus";
+import { CATEGORY_MENUS } from "@/enums/menu";
 import { updateCategoriesInDB } from "@/api/categories";
 import { Category } from "@/types/Category";
 

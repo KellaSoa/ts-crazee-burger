@@ -2,38 +2,41 @@ import React from "react";
 import TextInput from "@/components/reusable-ui/TextInput";
 import SelectInput from "@/components/reusable-ui/SelectInput";
 import styled from "styled-components";
-import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
-import { Product } from "@/types/Product";
+import { getInputTextsConfig, getSelectInputConfig } from "./menuInputsConfig";
 import { FormEvents } from "@/types/FormEvents";
-import MultipleSelect from "@/components/reusable-ui/MultiSelect/MultipleSelect";
+import { MultipleSelect } from "@/components/reusable-ui/MultiSelect/MultipleSelect";
 import { useOrderContext } from "@/context/OrderContext";
+import { MultiValue } from "react-select";
+import { Category } from "@/types/Category";
 import { IoPricetag } from "react-icons/io5";
 import { ADMIN_TAB_LABEL } from "@/enums/tabs";
+import { Menu } from "@/types/Menu";
 
-export type InputsProps = {
-  product: Product;
+export type MenuInputsProps = {
+  menu: Menu;
 } & FormEvents;
 
-export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
-  ({ product, onChange, onFocus, onBlur }, ref) => {
-    const inputTexts = getInputTextsConfig(product);
-    const inputSelects = getSelectInputConfig(product);
+export const MenuInputs = React.forwardRef<HTMLInputElement, MenuInputsProps>(
+  ({ menu, onChange, onFocus, onBlur }, ref) => {
     const { categories, productSelected, newProduct, currentTabSelected } =
       useOrderContext();
 
-    const onChangeMulti = (selectedCategories: unknown) => {
+    const inputTexts = getInputTextsConfig(menu);
+    const inputSelects = getSelectInputConfig(menu);
+
+    const onChangeMulti = (selectedCategories: MultiValue<Category>) => {
       const eventMulti = {
         target: {
           name: "categories",
           value: selectedCategories,
         },
-      } as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
+      } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
       onChange && onChange(eventMulti);
     };
 
     // affichage
     return (
-      <InputsStyled>
+      <MenuInputsStyled>
         <div className="first-row">
           {/* NAME */}
           <TextInput
@@ -55,19 +58,12 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
         </div>
         {/* CATEGORIES */}
         <div className="categories">
-          {/*<TextInput
-            {...inputTexts[2]}
-            onChange={onChange}
-            version="minimalist"
-            onFocus={onFocus}
-            onBlur={onBlur}
-          />*/}
           <MultipleSelect
             menuPlacement="auto"
             options={categories}
             onChange={onChangeMulti}
             customIcon={IoPricetag}
-            placeholder="Catégorie (ex: Boisson)"
+            placeholder="Produits inclus dans le menu"
             value={
               currentTabSelected === ADMIN_TAB_LABEL.PRODUCT_ADD
                 ? newProduct.categories
@@ -95,12 +91,12 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onBlur={onBlur}
           />
         ))}
-      </InputsStyled>
+      </MenuInputsStyled>
     );
   },
 );
 
-const InputsStyled = styled.div`
+const MenuInputsStyled = styled.div`
   /* border: 1px solid red; */
   /* background: blue; */
   grid-area: 1 / 2 / -2 / 3;

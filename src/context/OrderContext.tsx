@@ -14,6 +14,9 @@ import { ADMIN_TAB_LABEL } from "@/enums/tabs";
 import { useCategories } from "@/hooks/useCategories";
 import { Category } from "@/types/Category";
 import { DEFAULT_CATEGORY } from "@/enums/categories";
+import { useMenus } from "@/hooks/useMenus";
+import { Menu } from "@/types/Menu";
+import { EMPTY_MENU } from "@/enums/menu";
 
 type OrderContextType = {
   isModeAdmin: boolean;
@@ -52,6 +55,14 @@ type OrderContextType = {
   categoryMenus: Category;
   newCategory: Category;
   setNewCategory: React.Dispatch<React.SetStateAction<Category>>;
+  menus: Menu[] | undefined;
+  setMenus: React.Dispatch<React.SetStateAction<Menu[] | undefined>>;
+  handleAddMenu: (newMenu: Menu, username: string) => void;
+  handleDeleteMenu: (idOfMenuToDelete: string, username: string) => void;
+  handleMenuEdit: (menuBeingEdited: Menu, username: string) => void;
+  resetMenus: (username: string) => void;
+  newMenu: Menu;
+  setNewMenu: React.Dispatch<React.SetStateAction<Menu>>;
 };
 
 // 1. Création du context
@@ -62,10 +73,11 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   const [isModeAdmin, setIsModeAdmin] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
-    ADMIN_TAB_LABEL.PRODUCT_ADD,
+    ADMIN_TAB_LABEL.MENU_ADD,
   );
-  const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
-  const [newCategory, setNewCategory] = useState(DEFAULT_CATEGORY);
+  const [newProduct, setNewProduct] = useState<Product>(EMPTY_PRODUCT);
+  const [newCategory, setNewCategory] = useState<Category>(DEFAULT_CATEGORY);
+  const [newMenu, setNewMenu] = useState<Menu>(EMPTY_MENU);
   const [productSelected, setProductSelected] =
     useState<Product>(EMPTY_PRODUCT);
   const titleEditRef = useRef<HTMLInputElement>(null);
@@ -90,6 +102,14 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     categoryMenus,
   } = useCategories();
 
+  const {
+    menus,
+    setMenus,
+    handleAddMenu,
+    handleDeleteMenu,
+    handleMenuEdit,
+    resetMenus,
+  } = useMenus();
   const handleProductSelected = async (idProductClicked: string) => {
     if (!isModeAdmin || !products) return;
     const productClickedOn = findObjectById(idProductClicked, products);
@@ -139,6 +159,14 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     categoryMenus,
     newCategory,
     setNewCategory,
+    menus,
+    setMenus,
+    handleAddMenu,
+    handleDeleteMenu,
+    handleMenuEdit,
+    resetMenus,
+    newMenu,
+    setNewMenu,
   };
 
   return (

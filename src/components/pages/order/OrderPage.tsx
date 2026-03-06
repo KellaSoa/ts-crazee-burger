@@ -20,6 +20,7 @@ export default function OrderPage() {
     setIsModeAdmin,
     hidePanel,
     setCategories,
+    setMenus,
   } = useOrderContext();
   const [isModalShortcutsVisible, setIsModalShortcutsVisible] = useState(
     getLocalStorage("isModalShortcutsVisible") as boolean | null,
@@ -43,7 +44,13 @@ export default function OrderPage() {
 
   useEffect(() => {
     if (username)
-      initialiseUserSession(username, setProducts, setBasket, setCategories);
+      initialiseUserSession(
+        username,
+        setProducts,
+        setBasket,
+        setCategories,
+        setMenus,
+      );
   }, []);
 
   //affichage (render)

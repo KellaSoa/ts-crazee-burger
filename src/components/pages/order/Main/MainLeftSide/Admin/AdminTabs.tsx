@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Tab from "@/components/reusable-ui/Tab";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { theme } from "@/theme/theme";
-
 import { useOrderContext } from "@/context/OrderContext";
 import { getTabsConfig } from "./tabsConfig";
 import { ADMIN_TAB_LABEL } from "@/enums/tabs";
@@ -24,6 +23,17 @@ export default function AdminTabs() {
 
   const tabs = getTabsConfig();
 
+  const getClassNameToApply = (tabIndex: ADMIN_TAB_LABEL): string => {
+    if (
+      tabIndex === ADMIN_TAB_LABEL.MENU_ADD ||
+      tabIndex === ADMIN_TAB_LABEL.MENU_EDIT
+    )
+      // pour que les onglets "menus" du panel admin apparaissent en violet quand on clique sur l'un d'entre eux.
+      return currentTabSelected === tabIndex ? "is-products-tab-active" : "";
+
+    return currentTabSelected === tabIndex ? "is-active" : ""; // sinon en fond noir pour les onglets "produits"
+  };
+
   // affichage
   return (
     <AdminTabsStyled>
@@ -41,7 +51,7 @@ export default function AdminTabs() {
           label={tab.label}
           Icon={tab.Icon}
           onClick={() => selectTab(tab.index)}
-          className={currentTabSelected === tab.index ? "is-active" : ""}
+          className={getClassNameToApply(tab.index)}
         />
       ))}
     </AdminTabsStyled>
@@ -60,6 +70,11 @@ const AdminTabsStyled = styled.div`
     color: ${theme.colors.white};
   }
 
+  .is-products-tab-active {
+    background: ${theme.colors.purple};
+    border-color: ${theme.colors.purple};
+    color: ${theme.colors.white};
+  }
   button {
     margin-left: 1px;
   }

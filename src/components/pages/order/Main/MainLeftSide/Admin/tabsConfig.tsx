@@ -1,12 +1,16 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
-import ProductEditForm from "./AdminPanel/ProductEditForm/ProductEditForm";
-import HintMessage from "./AdminPanel/ProductEditForm/HintMessage";
-import ProductAddForm from "./AdminPanel/ProductAddForm/ProductAddForm";
-import { ADMIN_TAB_LABEL } from "@/enums/tabs";
+//@ts-ignore
+import ProductEditForm from "./AdminPanel/ProductForm/ProductEditForm/ProductEditForm";
+//@ts-ignore
+import HintMessage from "./AdminPanel/ProductForm/ProductEditForm/HintMessage";
+//@ts-ignore
+import ProductAddForm from "./AdminPanel/ProductForm/ProductAddForm/ProductAddForm";
 import { TabType } from "@/types/Tab";
-import { IoPricetag } from "react-icons/io5";
+import { ADMIN_TAB_LABEL } from "@/enums/tabs";
+import { IoFastFoodOutline, IoPricetag } from "react-icons/io5";
 import CategoryAddForm from "./AdminPanel/CategoryForm/CategoryAddForm";
+import MenuAddForm from "./AdminPanel/MenuForm/MenuAddForm/MenuAddForm";
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
   {
@@ -27,11 +31,18 @@ export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
     Icon: <IoPricetag />,
     Content: <CategoryAddForm />,
   },
+  {
+    index: ADMIN_TAB_LABEL.MENU_ADD,
+    label: "Créer un menu",
+    Icon: <IoFastFoodOutline />,
+    Content: <MenuAddForm />,
+  },
 ];
 
 export const getTabSelected = (
   tabs: TabType[],
   currentTabSelected: ADMIN_TAB_LABEL,
 ) => {
+  console.log("Current tab selected:", currentTabSelected);
   return tabs.find((tab) => tab.index === currentTabSelected);
 };

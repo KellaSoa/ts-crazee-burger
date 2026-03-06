@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/theme/theme";
 
-export default function EmptyProductsClient() {
+export default function EmptyCatalogProductsClient() {
   return (
     <EmptyProductsStyled>
       <span className="title">Victime de notre succès ! :D</span>

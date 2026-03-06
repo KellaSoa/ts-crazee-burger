@@ -3,10 +3,12 @@ import { db } from "./firebase-config";
 import { User } from "@/types/User";
 import { fakeProducts } from "@/fakeData/fakeProducts";
 import { fakeCategories } from "@/fakeData/fakeCategories";
+import { fakeMenus } from "@/fakeData/fakeMenus";
 
 const NEW_USER_BY_DEFAULT = {
   products: fakeProducts.LARGE,
   categories: fakeCategories.LARGE,
+  menus: fakeMenus.LARGE,
 };
 export const getUser = async (idUser: string): Promise<User | undefined> => {
   //const docRef = doc(CHEMIN)
@@ -33,6 +35,7 @@ export const createUser = async (userId: string): Promise<User> => {
     username: userId,
     products: NEW_USER_BY_DEFAULT.products,
     categories: NEW_USER_BY_DEFAULT.categories,
+    menus: NEW_USER_BY_DEFAULT.menus,
   };
 
   //setDoc(CACHETTE, NOURRITURE)

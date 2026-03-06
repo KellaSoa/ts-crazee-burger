@@ -5,7 +5,7 @@ import { theme } from "@/theme/theme";
 import { CATEGORY_ALL } from "@/enums/categories";
 import { useParams } from "react-router-dom";
 import { Category } from "@/types/Category";
-import { CATEGORY_MENUS } from "@/enums/menus";
+import { CATEGORY_MENUS } from "@/enums/menu";
 import { useEffect } from "react";
 
 export const Filters = () => {
@@ -17,6 +17,7 @@ export const Filters = () => {
     categoryAll,
     toggleAllCategories,
     toggleMenusCategory,
+    categoryMenus,
   } = useOrderContext();
 
   const toggleFilter = (categoryId: Category["id"]) => {
@@ -33,9 +34,10 @@ export const Filters = () => {
     username && toggleCategoryById(categoryId, username);
   };
 
-  // pour faire démarrer le filtre "Menus" par défaut le temps des tests
+  // pour faire démarrer le filtre "Menus" par défaut le temps des tests et du dev de la feature "onglet Menus"
   useEffect(() => {
-    toggleFilter(CATEGORY_ALL.id);
+    // toggleFilter(CATEGORY_ALL.id)
+    toggleFilter(CATEGORY_MENUS.id);
   }, []);
 
   return (
@@ -44,6 +46,16 @@ export const Filters = () => {
         className="filter"
         {...categoryAll}
         onClick={() => toggleFilter(CATEGORY_ALL.id)}
+      />
+      <Chip
+        className="filter"
+        {...categoryMenus}
+        onClick={() => toggleFilter(categoryMenus.id)}
+        color={
+          categoryMenus.isActive ? theme.colors.white : categoryMenus.color
+        }
+        backgroundColor={theme.colors.purple}
+        isActive={categoryMenus.isActive === true}
       />
       {categories.map((category) => {
         return (
@@ -77,6 +89,7 @@ const FiltersStyled = styled.div`
   position: sticky;
   top: 30px;
   z-index: 10;
+
   .filter {
     cursor: pointer;
   }
