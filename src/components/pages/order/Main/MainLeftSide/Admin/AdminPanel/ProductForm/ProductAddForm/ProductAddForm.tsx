@@ -3,8 +3,8 @@ import { useOrderContext } from "@/context/OrderContext";
 import { EMPTY_PRODUCT } from "@/enums/product";
 import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
-import Form from "../Form/Form";
-import SubmitButton from "../SubmitButton";
+import Form from "../../Form/Form";
+import SubmitButton from "../../SubmitButton";
 
 export default function ProductAddForm() {
   // state

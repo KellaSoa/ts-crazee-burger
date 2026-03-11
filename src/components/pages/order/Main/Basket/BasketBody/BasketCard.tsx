@@ -3,6 +3,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { theme } from "@/theme/theme";
 import CasinoEffect from "@/components/reusable-ui/CasinoEffect";
 import Sticker from "@/components/reusable-ui/Sticker";
+
 type BasketCardProps = {
   title: string;
   price: string;
@@ -14,6 +15,7 @@ type BasketCardProps = {
   onDelete?: React.MouseEventHandler<HTMLDivElement>;
   isSelected?: boolean;
   isPublicised?: boolean;
+  isMenu?: boolean;
 };
 
 export default function BasketCard({
@@ -27,13 +29,15 @@ export default function BasketCard({
   onDelete,
   isSelected,
   isPublicised,
+  isMenu,
 }: BasketCardProps) {
   return (
     <BasketCardStyled
       className={className}
-      isClickable={isClickable}
+      $isClickable={isClickable}
       onClick={onClick}
-      isSelected={isSelected}
+      $isSelected={isSelected}
+      $isMenu={isMenu}
     >
       <div className="delete-button" onClick={onDelete}>
         <MdDeleteForever className="icon" />
@@ -56,13 +60,15 @@ export default function BasketCard({
     </BasketCardStyled>
   );
 }
+
 type BasketCardStyledProps = {
-  isClickable?: boolean;
-  isSelected?: boolean;
+  $isClickable?: boolean;
+  $isSelected?: boolean;
+  $isMenu?: boolean;
 };
 
 const BasketCardStyled = styled.div<BasketCardStyledProps>`
-  cursor: ${({ isClickable }) => (isClickable ? "pointer" : "auto")};
+  cursor: ${({ $isClickable }) => ($isClickable ? "pointer" : "auto")};
   /* border: 1px solid red; */
   box-sizing: border-box;
   height: 86px;
@@ -190,12 +196,12 @@ const BasketCardStyled = styled.div<BasketCardStyledProps>`
     }
   }
 
-  ${({ isClickable, isSelected }) =>
-    isClickable && isSelected && selectedStyled}
+  ${({ $isClickable, $isSelected, $isMenu }) =>
+    $isClickable && $isSelected && selectedStyled($isMenu)}
 `;
 
-const selectedStyled = css`
-  background: ${theme.colors.primary};
+const selectedStyled = (isMenu?: boolean) => css`
+  background: ${isMenu ? theme.colors.purple : theme.colors.primary};
   .price,
   .quantity {
     color: ${theme.colors.white};

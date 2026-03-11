@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "@/enums/product";
 import BasketCard from "./BasketCard";
 import { useOrderContext } from "@/context/OrderContext";
-import { findObjectById } from "@/utils/array";
 import { checkIfProductIsClicked } from "../../MainLeftSide/CatalogProducts/helper";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { basketAnimation } from "@/theme/animations";
@@ -10,15 +9,17 @@ import { formatPrice } from "@/utils/maths";
 import { convertStringToBoolean } from "@/utils/string";
 import { useParams } from "react-router-dom";
 import { Product } from "@/types/Product";
+import { getBasketItem } from "./helper";
 
-export default function BasketProducts() {
+export default function BasketItems() {
   const {
     basket,
     isModeAdmin,
     handleDeleteBasketProduct,
-    menu,
+    products,
     handleProductSelected,
     productSelected,
+    menus,
   } = useOrderContext();
 
   const { username } = useParams();
@@ -31,21 +32,21 @@ export default function BasketProducts() {
     username && handleDeleteBasketProduct(id, username);
   };
 
-  const getPrice = (menuProduct: Product) => {
-    return convertStringToBoolean(menuProduct.isAvailable)
-      ? formatPrice(menuProduct.price)
+  const getPrice = (product: Product) => {
+    return convertStringToBoolean(product.isAvailable)
+      ? formatPrice(product.price)
       : BASKET_MESSAGE.NOT_AVAILABLE;
   };
 
   return (
     <TransitionGroup
-      component={BasketProductsStyled}
+      component={BasketItemsStyled}
       className={"transition-group"}
     >
       {basket.map((basketProduct) => {
-        if (menu === undefined) return <></>;
-        const menuProduct = findObjectById(basketProduct.id, menu);
-        if (!menuProduct) return <></>;
+        if (products === undefined || menus === undefined) return <></>;
+        const basketItem = getBasketItem(basketProduct.id, products, menus);
+        if (!basketItem) return <></>;
         return (
           <CSSTransition
             appear={true}
@@ -55,10 +56,10 @@ export default function BasketProducts() {
           >
             <div className="card-container">
               <BasketCard
-                {...menuProduct}
+                {...basketItem}
                 imageSource={
-                  menuProduct.imageSource
-                    ? menuProduct.imageSource
+                  basketItem.imageSource
+                    ? basketItem.imageSource
                     : IMAGE_COMING_SOON
                 }
                 quantity={basketProduct.quantity}
@@ -70,8 +71,9 @@ export default function BasketProducts() {
                   productSelected.id,
                 )}
                 className={"card"}
-                price={getPrice(menuProduct)}
-                isPublicised={convertStringToBoolean(menuProduct.isPublicised)}
+                price={getPrice(basketItem)}
+                isPublicised={convertStringToBoolean(basketItem.isPublicised)}
+                isMenu={"products" in basketItem}
               />
             </div>
           </CSSTransition>
@@ -81,7 +83,7 @@ export default function BasketProducts() {
   );
 }
 
-const BasketProductsStyled = styled.div`
+const BasketItemsStyled = styled.div`
   /* border: 1px solid red; */
   flex: 1;
   display: flex;

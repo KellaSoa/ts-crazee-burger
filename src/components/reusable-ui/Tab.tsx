@@ -25,7 +25,7 @@ const TabStyled = styled.button`
   top: 1px;
 
   // fonts
-  font-size: ${theme.fonts.size.P0};
+  font-size: ${theme.fonts.size.SM};
   color: ${theme.colors.greySemiDark};
 
   background: ${theme.colors.white};
