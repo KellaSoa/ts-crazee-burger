@@ -10,7 +10,7 @@ import CatalogMenus from "./CatalogMenus/CatalogMenus";
 
 export default function MainLeftSide() {
   const { isModeAdmin, products, menus, categoryMenus } = useOrderContext();
-  console.log("products:", products);
+
   return (
     <MainLeftSideStyled>
       {products === undefined ? (

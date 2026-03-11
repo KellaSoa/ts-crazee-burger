@@ -163,3 +163,26 @@ export const badgeAnimation = keyframes`
     opacity: 1;
   }
 `;
+
+export const marioCoinFloat = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-100%) translateY(10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-100%) translateY(0px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-100%) translateY(-10px);
+  }
+  90% {
+    opacity: 0.5;
+    transform: translateX(-100%) translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%) translateY(-25px);
+  }
+`;

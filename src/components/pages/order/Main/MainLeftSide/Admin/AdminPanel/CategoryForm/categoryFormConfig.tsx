@@ -1,34 +1,14 @@
 import { IoIosPricetag } from "react-icons/io";
 import { PiPaintBucketFill } from "react-icons/pi";
 import { BsFillCameraFill } from "react-icons/bs";
-import {
-  categoryIconsOptions,
-  CategoryOptions,
-  colorsOptions,
-} from "@/enums/select";
+
+import { categoryIconsOptions, colorsOptions } from "@/enums/select";
 import { Category } from "@/types/Category";
 
-type BaseFileds = {
-  id: string;
-  name: string;
-  value: string;
+// Ci-dessous : tous les champs qui permettent de configurer par défault notre formulaire CategoryForm (+ les values de notre formulaire)
 
-  Icon: JSX.Element;
-  //version: string;
-  className: string;
-};
-
-type CategoryTextInputConfig = BaseFileds & {
-  version: string;
-  placeholder: string;
-};
-type CategorySelectInputConfig = BaseFileds & {
-  options: CategoryOptions;
-  selectPlaceholder: string;
-};
-export const getCategoryTextInputsConfig = (
-  newCategory: Category,
-): CategoryTextInputConfig[] => [
+// en gros, en dessous, c'est tous les props que va recevoir le composant <TextInput/> dans CategoryForm
+export const getCategoryTextInputsConfig = (newCategory: Category) => [
   {
     id: "1",
     name: "label",
@@ -40,9 +20,8 @@ export const getCategoryTextInputsConfig = (
   },
 ];
 
-export const getCategorySelectInputConfig = (
-  newCategory: Category,
-): CategorySelectInputConfig[] => [
+// en gros, en dessous, c'est tous les props que va recevoir le composant <Select/> dans CategoryForm
+export const getCategorySelectInputConfig = (newCategory: Category) => [
   {
     id: "2",
     name: "color",

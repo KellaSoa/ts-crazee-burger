@@ -1,7 +1,7 @@
 import { isEmpty } from "@/utils/array";
 import { useOrderContext } from "@/context/OrderContext";
 import EmptyBasket from "./EmptyBasket";
-import BasketProducts from "./BasketProducts";
+import BasketItems from "./BasketItems";
 
 export default function BasketBody() {
   const { basket, products } = useOrderContext();
@@ -11,7 +11,7 @@ export default function BasketBody() {
       {isEmpty(basket) ? (
         <EmptyBasket isLoading={products === undefined} />
       ) : (
-        <BasketProducts />
+        <BasketItems />
       )}
     </>
   );

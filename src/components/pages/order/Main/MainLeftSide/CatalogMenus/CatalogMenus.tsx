@@ -3,8 +3,8 @@ import { useOrderContext } from "@/context/OrderContext";
 import { theme } from "@/theme/theme";
 import { formatPrice } from "@/utils/maths";
 import Card from "@/components/reusable-ui/Card";
-import EmptyCatalogProductsAdmin from "../CatalogProducts/EmptyCataglogProductsAdmin";
-import EmptyCatalogProductsClient from "../CatalogProducts/EmptyCatalogProductsClient";
+import EmptyCatalogProductsAdmin from "@/components/pages/order/Main/MainLeftSide/CatalogProducts/EmptyCataglogProductsAdmin";
+import EmptyCatalogProductsClient from "@/components/pages/order/Main/MainLeftSide/CatalogProducts/EmptyCatalogProductsClient";
 import { IMAGE_COMING_SOON, IMAGE_NO_STOCK } from "@/enums/product";
 import { isEmpty } from "@/utils/array";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -13,15 +13,23 @@ import { convertStringToBoolean } from "@/utils/string";
 import RibbonAnimated from "../CatalogProducts/RibbonAnimated";
 import { useParams } from "react-router-dom";
 import { Menu } from "@/types/Menu";
-import { ADMIN_TAB_LABEL } from "@/enums/tabs";
+import { checkIfProductIsClicked } from "../CatalogProducts/helper";
+import { EMPTY_MENU } from "@/enums/menu";
 
 type CatalogMenusProps = {
   menus: Menu[] | undefined;
 };
 
 export default function CatalogMenus({ menus }: CatalogMenusProps) {
-  const { isModeAdmin, handleAddToBasket, currentTabSelected, resetMenus } =
-    useOrderContext();
+  const {
+    isModeAdmin,
+    handleAddToBasket,
+    resetMenus,
+    handleDeleteMenu,
+    setMenuSelected,
+    menuSelected,
+    handleMenuSelected,
+  } = useOrderContext();
 
   const { username } = useParams();
 
@@ -31,6 +39,21 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
   ) => {
     event.stopPropagation();
     username && handleAddToBasket(idProductToAdd, username);
+  };
+
+  const handleCardDelete = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    idOfMenuToDelete: string,
+  ) => {
+    event.stopPropagation();
+    if (!username) return;
+    handleDeleteMenu(idOfMenuToDelete, username);
+    // handleDeleteBasketProduct(idOfMenuToDelete, username) // à gérer dans un ticket future
+    idOfMenuToDelete === menuSelected.id && setMenuSelected(EMPTY_MENU);
+  };
+
+  const handleMenuClick = (id: string) => {
+    handleMenuSelected(id);
   };
 
   let cardContainerClassName = isModeAdmin
@@ -47,8 +70,9 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
 
   return (
     <TransitionGroup component={CatalogMenusStyled} className="menus">
-      {menus.map(
-        ({
+      {menus.map((menu) => {
+        const isMenu = "products" in menu;
+        const {
           id,
           title,
           imageSource,
@@ -56,8 +80,8 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
           isAvailable,
           isPublicised,
           categories,
-          oldPrice,
-        }) => (
+        } = menu;
+        return (
           <CSSTransition classNames={"menus-animation"} key={id} timeout={300}>
             <div className={cardContainerClassName}>
               {convertStringToBoolean(isPublicised) && <RibbonAnimated />}
@@ -68,25 +92,22 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
                   typeof price === "string" ? parseFloat(price) : price,
                 )}
                 hasDeleteButton={isModeAdmin}
-                // onDelete={(event) => handleCardDelete(event, id)}
+                onDelete={(event) => handleCardDelete(event, id)}
                 isHoverable={isModeAdmin}
-                // isSelected={checkIfProductIsClicked(id, menuSelected.id)}
-                isMenu={
-                  currentTabSelected === ADMIN_TAB_LABEL.PRODUCT_ADD ||
-                  currentTabSelected === ADMIN_TAB_LABEL.PRODUCT_EDIT
-                }
+                isSelected={checkIfProductIsClicked(id, menuSelected.id)}
+                isMenu={isMenu}
                 onAdd={(event) => handleAddButton(event, id)}
                 overlapImageSource={IMAGE_NO_STOCK}
                 isOverlapImageVisible={
                   convertStringToBoolean(isAvailable) === false
                 }
                 categories={categories}
-                // onClick={() => handleMenuClick(id)}
+                onClick={() => handleMenuClick(id)}
               />
             </div>
           </CSSTransition>
-        ),
-      )}
+        );
+      })}
     </TransitionGroup>
   );
 }

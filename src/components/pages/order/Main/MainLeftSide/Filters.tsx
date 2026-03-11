@@ -36,8 +36,8 @@ export const Filters = () => {
 
   // pour faire démarrer le filtre "Menus" par défaut le temps des tests et du dev de la feature "onglet Menus"
   useEffect(() => {
-    // toggleFilter(CATEGORY_ALL.id)
-    toggleFilter(CATEGORY_MENUS.id);
+    toggleFilter(CATEGORY_ALL.id);
+    //toggleFilter(CATEGORY_MENUS.id);
   }, []);
 
   return (

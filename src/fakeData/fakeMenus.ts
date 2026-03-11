@@ -1,6 +1,7 @@
 import { Menu } from "@/types/Menu";
 import { fakeCategories } from "./fakeCategories";
 import { fakeProducts } from "./fakeProducts";
+import { getCategoriesFromMenuProducts } from "@/components/pages/order/Main/MainLeftSide/Admin/AdminPanel/MenuForm/MenuAddForm/helper";
 
 const EMPTY: Menu[] = [];
 
@@ -11,7 +12,7 @@ const SMALL: Menu[] = [
     imageSource:
       "https://o-verruyes.fr/wp-content/uploads/2020/12/hamburger.png",
     price: 15.353,
-    categories: fakeCategories.LARGE.slice(0, 3),
+    categories: getCategoriesFromMenuProducts(fakeProducts.SMALL.slice(0, 3)),
     quantity: 0,
     isAvailable: true,
     isPublicised: false,
@@ -26,7 +27,7 @@ const MEDIUM: Menu[] = [
     imageSource:
       "https://allpizzapastabuffet.fr/Montpellier/wp-content/uploads/2024/05/appb-formule-burger.png",
     price: 15.353,
-    categories: fakeCategories.LARGE.slice(0, 3),
+    categories: getCategoriesFromMenuProducts(fakeProducts.SMALL.slice(0, 3)),
     quantity: 0,
     isAvailable: true,
     isPublicised: false,
@@ -38,11 +39,11 @@ const MEDIUM: Menu[] = [
     imageSource:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAZlAOqTQtYzG7KwBizjcP6EdO_3JWSCCzWH5JGLk-y1Uk3DDdIlcKWrUMZ6eGRRM0Q_Q&usqp=CAU",
     price: 15.353,
-    categories: fakeCategories.LARGE.slice(0, 1),
+    categories: getCategoriesFromMenuProducts(fakeProducts.SMALL.slice(0, 3)),
     quantity: 0,
     isAvailable: true,
     isPublicised: false,
-    products: fakeProducts.SMALL.slice(0, 3),
+    products: fakeProducts.MEDIUM.slice(0, 3),
   },
   {
     id: "3a",
@@ -50,11 +51,11 @@ const MEDIUM: Menu[] = [
     imageSource:
       "https://api.helpyfood.com/menus/16b3a835e95b4cc216f960cb730c6e1e.png.webp",
     price: 15.353,
-    categories: fakeCategories.LARGE.slice(0, 3),
+    categories: getCategoriesFromMenuProducts(fakeProducts.SMALL.slice(0, 3)),
     quantity: 0,
     isAvailable: true,
     isPublicised: false,
-    products: fakeProducts.SMALL.slice(0, 3),
+    products: fakeProducts.LARGE.slice(0, 3),
   },
 ];
 
@@ -64,7 +65,6 @@ const LARGE: Menu[] = [
     title: "Groovy Menu 1",
     imageSource:
       "https://png.pngtree.com/png-clipart/20250316/original/pngtree-classic-burger-with-fries-and-drink-png-image_19458094.png",
-
     price: 0,
     categories: fakeCategories.LARGE.slice(0, 3),
     quantity: 0,
@@ -114,7 +114,7 @@ const LARGE: Menu[] = [
     imageSource:
       "https://us.123rf.com/450wm/boarding1now/boarding1now1612/boarding1now161200195/68326512-menu-hamburger-cheeseburger-et-des-frites-repas-combo-boisson-fast-food-isol%C3%A9-sur-un-fond-blanc.jpg",
     price: 0,
-    categories: fakeCategories.LARGE.slice(0, 3),
+    categories: getCategoriesFromMenuProducts(fakeProducts.SMALL.slice(0, 3)),
     quantity: 0,
     isAvailable: true,
     isPublicised: false,

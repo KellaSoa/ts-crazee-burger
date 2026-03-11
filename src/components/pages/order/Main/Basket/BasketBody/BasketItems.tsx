@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { BASKET_MESSAGE, IMAGE_COMING_SOON } from "@/enums/product";
 import BasketCard from "./BasketCard";
 import { useOrderContext } from "@/context/OrderContext";
-import { findObjectById } from "@/utils/array";
 import { checkIfProductIsClicked } from "../../MainLeftSide/CatalogProducts/helper";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { basketAnimation } from "@/theme/animations";
@@ -10,8 +9,9 @@ import { formatPrice } from "@/utils/maths";
 import { convertStringToBoolean } from "@/utils/string";
 import { useParams } from "react-router-dom";
 import { Product } from "@/types/Product";
+import { getBasketItem } from "./helper";
 
-export default function BasketProducts() {
+export default function BasketItems() {
   const {
     basket,
     isModeAdmin,
@@ -19,6 +19,7 @@ export default function BasketProducts() {
     products,
     handleProductSelected,
     productSelected,
+    menus,
   } = useOrderContext();
 
   const { username } = useParams();
@@ -39,13 +40,13 @@ export default function BasketProducts() {
 
   return (
     <TransitionGroup
-      component={BasketProductsStyled}
+      component={BasketItemsStyled}
       className={"transition-group"}
     >
       {basket.map((basketProduct) => {
-        if (products === undefined) return <></>;
-        const productFromProducts = findObjectById(basketProduct.id, products);
-        if (!productFromProducts) return <></>;
+        if (products === undefined || menus === undefined) return <></>;
+        const basketItem = getBasketItem(basketProduct.id, products, menus);
+        if (!basketItem) return <></>;
         return (
           <CSSTransition
             appear={true}
@@ -55,10 +56,10 @@ export default function BasketProducts() {
           >
             <div className="card-container">
               <BasketCard
-                {...productFromProducts}
+                {...basketItem}
                 imageSource={
-                  productFromProducts.imageSource
-                    ? productFromProducts.imageSource
+                  basketItem.imageSource
+                    ? basketItem.imageSource
                     : IMAGE_COMING_SOON
                 }
                 quantity={basketProduct.quantity}
@@ -70,10 +71,9 @@ export default function BasketProducts() {
                   productSelected.id,
                 )}
                 className={"card"}
-                price={getPrice(productFromProducts)}
-                isPublicised={convertStringToBoolean(
-                  productFromProducts.isPublicised,
-                )}
+                price={getPrice(basketItem)}
+                isPublicised={convertStringToBoolean(basketItem.isPublicised)}
+                isMenu={"products" in basketItem}
               />
             </div>
           </CSSTransition>
@@ -83,7 +83,7 @@ export default function BasketProducts() {
   );
 }
 
-const BasketProductsStyled = styled.div`
+const BasketItemsStyled = styled.div`
   /* border: 1px solid red; */
   flex: 1;
   display: flex;

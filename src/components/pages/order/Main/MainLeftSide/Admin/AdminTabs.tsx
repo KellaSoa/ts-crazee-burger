@@ -5,6 +5,8 @@ import { theme } from "@/theme/theme";
 import { useOrderContext } from "@/context/OrderContext";
 import { getTabsConfig } from "./tabsConfig";
 import { ADMIN_TAB_LABEL } from "@/enums/tabs";
+import { ta } from "zod/locales";
+import { CATEGORY_MENUS } from "@/enums/menu";
 
 export default function AdminTabs() {
   // state
@@ -13,10 +15,24 @@ export default function AdminTabs() {
     setIsCollapsed,
     currentTabSelected,
     setCurrentTabSelected,
+    toggleMenusCategory,
+    toggleAllCategories,
   } = useOrderContext();
 
   // comportements
   const selectTab = (tabSelected: ADMIN_TAB_LABEL) => {
+    if (
+      tabSelected === ADMIN_TAB_LABEL.MENU_EDIT ||
+      tabSelected === ADMIN_TAB_LABEL.MENU_ADD
+    ) {
+      toggleMenusCategory();
+    }
+    if (
+      tabSelected === ADMIN_TAB_LABEL.PRODUCT_ADD ||
+      tabSelected === ADMIN_TAB_LABEL.PRODUCT_EDIT
+    ) {
+      toggleAllCategories();
+    }
     setIsCollapsed(false); // tu m'ouvres le pannel
     setCurrentTabSelected(tabSelected);
   };

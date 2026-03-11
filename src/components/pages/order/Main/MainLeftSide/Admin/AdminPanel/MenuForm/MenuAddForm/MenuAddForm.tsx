@@ -2,22 +2,23 @@ import { useOrderContext } from "@/context/OrderContext";
 import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
 import Form from "../../Form/Form";
-import SubmitButton from "../../SubmitButton";
 import { useParams } from "react-router-dom";
 import { displayToastNotification } from "@/utils/toast";
 import { Menu } from "@/types/Menu";
-import { EMPTY_MENU } from "@/enums/menu";
 import {
   getCategoriesFromMenuProducts,
   getMenuPrice,
   menuFormSchema,
-} from "./helper";
+} from "../MenuAddForm/helper";
 import { Product } from "@/types/Product";
 import { Category } from "@/types/Category";
+import { EMPTY_MENU } from "@/enums/menu";
+import SubmitButton from "../../SubmitButton";
 
 export default function MenuAddForm() {
   // state
-  const { handleAddMenu, newMenu, setNewMenu } = useOrderContext();
+  const { handleAddMenu, newMenu, setNewMenu, titleMenuEditRef } =
+    useOrderContext();
   const { isSubmitted, displaySuccessMessage } = useSuccessMessage();
   const { username } = useParams();
 
@@ -26,14 +27,14 @@ export default function MenuAddForm() {
     event.preventDefault();
     if (!username) return;
 
-    const newMenuToAdd: Menu = {
+    const menuToUpdate: Menu = {
       ...newMenu,
       id: crypto.randomUUID(),
       price: replaceFrenchCommaWithDot(newMenu.price),
     };
 
     // Validation avec Zod
-    const result = menuFormSchema.safeParse(newMenuToAdd);
+    const result = menuFormSchema.safeParse(menuToUpdate);
     if (!result.success) {
       result.error.issues.map((error) => {
         displayToastNotification(`${error.message}`, "error", {
@@ -43,7 +44,7 @@ export default function MenuAddForm() {
       return;
     }
 
-    handleAddMenu(newMenuToAdd, username);
+    handleAddMenu(menuToUpdate, username);
     setNewMenu(EMPTY_MENU);
 
     displaySuccessMessage();
@@ -54,7 +55,7 @@ export default function MenuAddForm() {
   ) => {
     const { name, value } = event.target;
 
-    let menuPrice: number | string = newMenu.price;
+    let menuPrice: number = newMenu.price;
     let menuCategories: Category[] = newMenu.categories || [];
 
     if (name === "products") {
@@ -66,20 +67,17 @@ export default function MenuAddForm() {
     }
 
     if (name === "price") {
-      // Permettre la saisie manuelle, mais sera écrasée si on change les produits
-      //menuPrice = Number(value.replace(',', '.')) // le vrai code à conserver. This is why : https://www.tella.tv/video/cmb986cqy000i0cl24lnp14l1/edit
-      menuPrice = value;
+      menuPrice = value as unknown as number; // car "value" (de event.target) est par défaut TOUJOURS de type string (même si c'est pas vrai dans la vraie vie)
     }
 
-    const newMenuToUpdate = {
+    const menuToUpdate: Menu = {
       ...newMenu,
       [name]: value,
       price: menuPrice,
       categories: menuCategories,
     };
 
-    // @ts-expect-error
-    setNewMenu(newMenuToUpdate);
+    setNewMenu(menuToUpdate);
   };
 
   // affichage
@@ -89,6 +87,7 @@ export default function MenuAddForm() {
       onSubmit={handleSubmit}
       onChange={handleChange}
       isMenu
+      ref={titleMenuEditRef}
     >
       <SubmitButton
         isSubmitted={isSubmitted}
